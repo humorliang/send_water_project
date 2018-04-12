@@ -5,9 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{url_for('static',filename='css/navbar.css')}}">
-    <title>添加信息</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/navbar.css') }}">
+    <title>{% block title %}{% endblock %}</title>
+    {% block style %}{% endblock %}
 </head>
 
 <body>
@@ -25,10 +26,10 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="#">客户信息</a>
+                            <a href="{{ url_for('custom_info',page=1) }}">客户信息</a>
                         </li>
                         <li>
-                            <a href="#">添加信息</a>
+                            <a href="{{ url_for('add_custom') }}">添加信息</a>
                         </li>
 
                     </ul>
@@ -40,10 +41,10 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="#">订单信息</a>
+                            <a href="{{ url_for('order_info',page=1) }}">订单信息</a>
                         </li>
                         <li>
-                            <a href="#">添加订单</a>
+                            <a href="{{ url_for('add_order') }}">添加订单</a>
                         </li>
 
                     </ul>
@@ -55,10 +56,10 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="#">库存信息</a>
+                            <a href="{{ url_for('store_info',page=1) }}">库存信息</a>
                         </li>
                         <li>
-                            <a href="#">添加库存</a>
+                            <a href="{{ url_for('add_store') }}">添加库存</a>
                         </li>
 
                     </ul>
@@ -70,10 +71,10 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="#">配送信息</a>
+                            <a href="{{ url_for('distribution_info',page=1) }}">配送信息</a>
                         </li>
                         <li>
-                            <a href="#">添加配送</a>
+                            <a href="{{ url_for('add_distribution') }}">添加配送</a>
                         </li>
 
                     </ul>
@@ -85,10 +86,10 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="#">售后信息</a>
+                            <a href="{{ url_for('serve_info',page=1) }}">售后信息</a>
                         </li>
                         <li>
-                            <a href="#">添加售后</a>
+                            <a href="{{ url_for('add_serve') }}">添加售后</a>
                         </li>
 
                     </ul>
@@ -102,10 +103,10 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="#">修改密码</a>
+                            <a href="{{ url_for('edit_pwd') }}">修改密码</a>
                         </li>
                         <li>
-                            <a href="#">退出登录</a>
+                            <a href="{{ url_for('login_out') }}">退出登录</a>
                         </li>
                     </ul>
                 </li>
@@ -114,12 +115,11 @@
     </div>
 </nav>
 <div>
-    <div class="main">
-
-    </div>
+    {% block content %}
+    {% endblock %}
 </div>
 </body>
-<script src="{{url_for('static',filename='js/jquery.min.js')}}"></script>
-<script src="{{url_for('static',filename='js/bootstrap.min.jss')}}"></script>
+<script src="{{ url_for('static',filename='js/jquery.min.js') }}"></script>
+<script src="{{ url_for('static',filename='js/bootstrap.min.js') }}"></script>
 
 </html>
