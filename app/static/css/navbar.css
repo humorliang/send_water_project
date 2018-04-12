@@ -1,0 +1,17 @@
+body {
+  padding-bottom: 20px;
+}
+
+.navbar {
+  margin-bottom: 20px;
+}
+.dropdown-menu{
+  min-width: 100px;
+}
+.main{
+  padding: 0 10px;
+}
+.main h2{
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+}
