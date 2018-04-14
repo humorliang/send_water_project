@@ -63,7 +63,6 @@ def login_out():
 
 # 注册
 @app.route('/register', methods=['GET', 'POST'])
-@is_login
 def register():
     form = RegisterForm()
     if request.method == 'POST':
