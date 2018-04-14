@@ -14,17 +14,34 @@
 <body>
 <div class="container">
     <form class="form-signin" method="POST">
-        <h2 class="form-signin-heading text-center">系修改密码</h2>
+        <h2 class="form-signin-heading text-center">修改密码</h2>
         <div class="form-label">用户名</div>
-        <input type="email" class="form-control" placeholder="Email address" required="" autofocus="">
+        {#        <input type="email" class="form-control" placeholder="Email address" required="" autofocus="">#}
+        {{ form.username }}
+        {% for err in form.username.errors %}
+            <div class="form-label text-center text-danger">{{ err }}</div>
+        {% endfor %}
         <div class="form-label">旧密码</div>
-        <input type="password" class="form-control" placeholder="Password" required="">
+        {#        <input type="password" class="form-control" placeholder="Password" required="">#}
+        {{ form.oldpwd }}
+        {% for err in form.oldpwd.errors %}
+            <div class="form-label text-center text-danger">{{ err }}</div>
+        {% endfor %}
         <div class="form-label">新密码</div>
-        <input type="password" class="form-control" placeholder="Password" required="">
+        {#        <input type="password" class="form-control" placeholder="Password" required="">#}
+        {{ form.newpwd }}
+        {% for err in form.newpwd.errors %}
+            <div class="form-label text-center text-danger">{{ err }}</div>
+        {% endfor %}
         <div class="form-label">确认新密码</div>
-        <input type="password" class="form-control" placeholder="Password" required="">
-        <button class="btn btn-md btn-primary btn-block" type="submit">登陆</button>
-        <a href="#" class="btn btn-md btn-primary btn-block">注册</a>
+        {#        <input type="password" class="form-control" placeholder="Password" required="">#}
+        {{ form.renewpwd }}
+        {% for err in form.renewpwd.errors %}
+            <div class="form-label text-center text-danger">{{ err }}</div>
+        {% endfor %}
+        {{ form.hidden_tag() }}
+        {{ form.submit }}
+        {#        <button class="btn btn-md btn-primary btn-block" type="submit">登陆</button>#}
     </form>
 </div>
 </body>

@@ -6,25 +6,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static',filename='css/sign.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/signin.css') }}">
     <title>注册页面</title>
 </head>
 
 <body>
-    <div class="container">
-        <form class="form-signin" method="POST">
-            <h2 class="form-signin-heading text-center">用户注册</h2>
-            <div class="form-label">用户名</div>
-            <input type="ytext" class="form-control" placeholder="Email address" required="" autofocus="">
-            <div class="form-label">密码</div>
-            <input type="password"  class="form-control" placeholder="Password" required="">
-            <div class="form-label">确认密码</div>
-            <input type="password"  class="form-control" placeholder="Password" required="">
-            
-            <button class="btn btn-lg btn-primary btn-block" type="submit">注册</button>
-    
-        </form>
-    </div>
+<div class="container">
+    <form class="form-signin" method="POST">
+        <h2 class="form-signin-heading text-center">用户注册</h2>
+        <div class="form-label">用户名</div>
+        {{ form.username }}
+        {% for err in form.username.errors %}
+            <div class="form-label text-center text-danger">{{ err }}</div>
+        {% endfor %}
+
+        <div class="form-label">密码</div>
+        {#        <input type="password" class="form-control" placeholder="Password" required="">#}
+        {{ form.pwd }}
+        {% for err in form.pwd.errors %}
+            <div class="form-label text-center text-danger">{{ err }}</div>
+        {% endfor %}
+
+        <div class="form-label">确认密码</div>
+        {#        <input type="password" class="form-control" placeholder="Password" required="">#}
+        {{ form.repwd }}
+        {% for err in form.repwd.errors %}
+            <div class="form-label text-center text-danger">{{ err }}</div>
+        {% endfor %}
+        {{ form.hidden_tag() }}
+        {{ form.submit }}
+        {#        <button class="btn btn-lg btn-primary btn-block" type="submit">注册</button>#}
+
+    </form>
+</div>
 </body>
 
 </html>

@@ -1,33 +1,44 @@
 {% extends 'base.html' %}
+{% import 'UI/pagination.html' as pg %}
 {% block title %}
-    库存信息
+    配送信息
 {% endblock %}
 {% block content %}
     <div class="main">
-        <h2 class="sub-header">库存信息</h2>
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>产品编号</th>
-                    <th>产品名称</th>
-                    <th>配送人</th>
-                    <th>配送日期</th>
-                    <th>联系方式</th>
-                    <th>配送地址</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>2018041101</td>
-                    <td>百岁山</td>
-                    <td>老王</td>
-                    <td>2018-2-3</td>
-                    <td>188</td>
-                    <td>上海浦东新区</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+        <h2 class="sub-header">配送信息</h2>
+        {% if sends %}
+
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>产品编号</th>
+                        <th>产品名称</th>
+                        <th>配送人</th>
+                        <th>配送日期</th>
+                        <th>联系方式</th>
+                        <th>配送地址</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for v in sends.items %}
+                        <tr>
+                            <td>{{ v.OrderId }}</td>
+                            <td>{{ v.ProductName }}</td>
+                            <td>{{ v.SendName }}</td>
+                            <td>{{ v.SendDate }}</td>
+                            <td>{{ v.SendPhone }}</td>
+                            <td>{{ v.SendAddress }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="center-block">
+                {{ pg.page(sends,'distribution_info') }}
+            </div>
+        {% else %}
+            <div class="text-center text-primary" style="font-size: 20px;"> 您目前没有配送信息</div>
+        {% endif %}
     </div>
 {% endblock %}

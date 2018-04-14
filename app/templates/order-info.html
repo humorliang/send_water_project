@@ -1,37 +1,48 @@
 {% extends 'base.html' %}
+{% import 'UI/pagination.html' as pg %}
 {% block title %}
-订单信息
+    订单信息
 {% endblock %}
 {% block content %}
- <div class="main">
-            <h2 class="sub-header">订单信息</h2>
+    <div class="main">
+        <h2 class="sub-header">订单信息</h2>
+        {% if odata %}
+
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
-                        <tr>
-                            <th>订单编号</th>
-                            <th>客户编号</th>
-                            <th>产品编号</th>
-                            <th>订单数量</th>
-                            <th>订单日期</th>
-                            <th>订单状态</th>
-                            <th>总金额</th>
-                            <th>操作</th>
-                        </tr>
+                    <tr>
+                        <th>订单编号</th>
+                        <th>客户编号</th>
+                        <th>产品编号</th>
+                        <th>订单数量</th>
+                        <th>订单日期</th>
+                        <th>订单状态</th>
+                        <th>总金额</th>
+                        <th>操作</th>
+                    </tr>
                     </thead>
                     <tbody>
+                    {% for v in odata.items %}
                         <tr>
-                            <td>2018041101</td>
-                            <td>2018041101</td>
-                            <td>2018041101</td>
-                            <td>10</td>
-                            <td>2018-2-3</td>
-                            <td>已完成</td>
-                            <td>100</td>
-                            <td><a href="#" class="btn btn-primary btn-xs">编辑</a></td>
+                            <td>{{ v.OrderId }}</td>
+                            <td>{{ v.CustomId }}</td>
+                            <td>{{ v.ProductId }}</td>
+                            <td>{{ v.OrderNum }}</td>
+                            <td>{{ v.OrderDate }}</td>
+                            <td>{{ v.OrderStatus }}</td>
+                            <td>{{ v.OrderMoney }}</td>
+                            <td><a href="{{ url_for('edit_Order',id=v.id) }}" class="btn btn-primary btn-xs">编辑</a></td>
                         </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>
-        </div>
+            <div class="center-block">
+                {{ pg.page(odata,'order_info') }}
+            </div>
+        {% else %}
+            <div class="text-center text-primary" style="font-size: 20px;"> 您目前没有订单信息</div>
+        {% endif %}
+    </div>
 {% endblock %}

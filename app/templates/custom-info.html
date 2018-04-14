@@ -1,33 +1,47 @@
 {% extends 'base.html' %}
+{% import 'UI/pagination.html' as pg %}
 {% block title %}
     客户信息
 {% endblock %}
 {% block content %}
-<div class="main">
-            <h2 class="sub-header">客户信息</h2>
+    <div class="main">
+        <h2 class="sub-header">客户信息</h2>
+        {% if cdata %}
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
-                        <tr>
-                            <th>客户编号</th>
-                            <th>客户姓名</th>
-                            <th>联系方式</th>
-                            <th>客户地址</th>
-                            <th>账户余额</th>
-                            <th>客户类型</th>
-                        </tr>
+                    <tr>
+                        <th>客户编号</th>
+                        <th>客户姓名</th>
+                        <th>联系方式</th>
+                        <th>客户地址</th>
+                        <th>账户总额</th>
+                        <th>消费金额</th>
+                        <th>客户类型</th>
+                    </tr>
                     </thead>
                     <tbody>
+                    {% for v in cdata.items %}
+
                         <tr>
-                            <td>2018041101</td>
-                            <td>老王</td>
-                            <td>188</td>
-                            <td>苏州市</td>
-                            <td>100</td>
-                            <td>普通</td>
+                            <td>{{ v.CustomId }}</td>
+                            <td>{{ v.CustomName }}</td>
+                            <td>{{ v.CustomPhone }}</td>
+                            <td>{{ v.CustomAddress }}</td>
+                            <td>{{ v.CustomAccount }}</td>
+                            <td>{{ v.CustomConsume }}</td>
+                            <td>{{ v.CustomType }}</td>
                         </tr>
+                    {% endfor %}
+
                     </tbody>
                 </table>
             </div>
-        </div>
+            <div class="center-block">
+                {{ pg.page(cdata,'custom_info') }}
+            </div>
+        {% else %}
+            <div class="text-center text-primary" style="font-size: 20px;"> 您目前没有客户信息</div>
+        {% endif %}
+    </div>
 {% endblock %}

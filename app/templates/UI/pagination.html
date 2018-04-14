@@ -1,0 +1,47 @@
+{% macro page(pagedata, url) %}
+    {% if pagedata.pages %}
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li><a href="{{ url_for(url,page=1) }}">首页</a></li>
+                {% if pagedata.has_prev %}
+                    <li>
+                        <a href="{{ url_for(url,page=pagedata.prev_num) }}">
+                            上一页
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="disabled">
+                        <a href="#">
+                            上一页
+                        </a>
+                    </li>
+                {% endif %}
+                {#                    定义页码迭代器#}
+                {% for n in pagedata.iter_pages() %}
+                    {% if n==pagedata.page %}
+                        <li class="active"><a href="{{ url_for(url,page=n) }}">{{ n }}</a></li>
+                    {% else %}
+                        <li><a href="{{ url_for(url,page=n) }}">{{ n }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if pagedata.has_next %}
+                    <li>
+                        <a href="{{ url_for(url,page=pagedata.next_num) }}">
+                            下一页
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="disabled">
+                        <a href="#">
+                            下一页
+                        </a>
+                    </li>
+                {% endif %}
+                <li><a href="{{ url_for(url,page=pagedata.pages) }}">尾页</a></li>
+            </ul>
+        </nav>
+    {% else %}
+        <h2 class="text-center text-primary">没有更多信息</h2>
+    {% endif %}
+{% endmacro %}

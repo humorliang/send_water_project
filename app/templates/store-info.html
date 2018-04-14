@@ -1,38 +1,50 @@
 {% extends 'base.html' %}
-
+{% import 'UI/pagination.html' as pg %}
 {% block title %}
     库存信息
 {% endblock %}
 {% block content %}
     <div class="main">
         <h2 class="sub-header">库存信息</h2>
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>产品编号</th>
-                    <th>产品名称</th>
-                    <th>生产商</th>
-                    <th>生产日期</th>
-                    <th>产品种类</th>
-                    <th>产品价格</th>
-                    <th>操作</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>2018041101</td>
-                    <td>百岁山</td>
-                    <td>百岁山集团</td>
-                    <td>2018-2-3</td>
-                    <td>瓶装水</td>
-                    <td>2</td>
-                    <td>
-                        <a href="#" class="btn btn-primary btn-xs">编辑</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+        {% if stdata %}
+
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>产品编号</th>
+                        <th>产品名称</th>
+                        <th>生产商</th>
+                        <th>生产日期</th>
+                        <th>产品种类</th>
+                        <th>产品价格</th>
+                        <th>库存数量</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for v in stdata.items %}
+                        <tr>
+                            <td>{{ v.ProductId }}</td>
+                            <td>{{ v.ProductName }}</td>
+                            <td>{{ v.ProducerName }}</td>
+                            <td>{{ v.ProductDate }}</td>
+                            <td>{{ v.ProductType }}</td>
+                            <td>{{ v.ProductPrice }}</td>
+                            <td>{{ v.ProductNum }}</td>
+                            <td>
+                                <a href="{{ url_for('edit_store',id=v.id) }}" class="btn btn-primary btn-xs">编辑</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="center-block">
+                {{ pg.page(stdata,'store_info') }}
+            </div>
+        {% else %}
+            <div class="text-center text-primary" style="font-size: 20px;"> 您目前没有库存信息</div>
+        {% endif %}
     </div>
 {% endblock %}

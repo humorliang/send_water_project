@@ -1,29 +1,39 @@
 {% extends 'base.html' %}
+{% import 'UI/pagination.html' as pg %}
 {% block title %}
     售后信息
 {% endblock %}
 {% block content %}
     <div class="main">
-            <h2 class="sub-header">售后信息</h2>
+        <h2 class="sub-header">售后信息</h2>
+        {% if sedata %}
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
-                        <tr>
-                            <th>售后编号</th>
-                            <th>客户编号</th>
-                            <th>售后日期</th>
-                            <th>售后说明</th>
-                        </tr>
+                    <tr>
+                        <th>售后编号</th>
+                        <th>客户编号</th>
+                        <th>售后日期</th>
+                        <th>售后说明</th>
+                    </tr>
                     </thead>
                     <tbody>
+                    {% for v in sedata.items %}
                         <tr>
-                            <td>2018041101</td>
-                            <td>201711702</td>
-                            <td>2018-2-3</td>
-                            <td>设备维修</td>
+                            <td>{{ v.ServeId }}</td>
+                            <td>{{ v.CustomId }}</td>
+                            <td>{{ v.ServeDate }}</td>
+                            <td>{{ v.ServeInfo }}</td>
                         </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>
-        </div>
+            <div class="center-block">
+                {{ pg.page(sedata,'serve_info') }}
+            </div>
+        {% else %}
+            <div class="text-center text-primary" style="font-size: 20px;"> 您目前没有售后信息</div>
+        {% endif %}
+    </div>
 {% endblock %}
