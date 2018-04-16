@@ -108,7 +108,7 @@ def custom_info(page=None):
     for k, v in num.items():
         custom = Custom.query.filter_by(CustomId=k).update(dict(CustomConsume=v))
         db.session.commit()
-    customs = Custom.query.paginate(page=page, per_page=2)
+    customs = Custom.query.paginate(page=page, per_page=6)
     return render_template('custom-info.html', cdata=customs)
 
 
@@ -135,7 +135,7 @@ def add_custom():
 def order_info(page=None):
     if page is None:
         page = 1
-    orders = Order.query.paginate(page=page, per_page=2)
+    orders = Order.query.paginate(page=page, per_page=6)
     return render_template('order-info.html', odata=orders)
 
 
@@ -271,7 +271,7 @@ def edit_Order(id=None):
 def distribution_info(page=None):
     if page is None:
         page = 1
-    sends = Send.query.paginate(page=page, per_page=2)
+    sends = Send.query.paginate(page=page, per_page=6)
     return render_template('distribution-info.html', sends=sends)
 
 
@@ -298,7 +298,7 @@ def add_distribution():
 def store_info(page=None):
     if page is None:
         page = 1
-    stores = Product.query.paginate(page=page, per_page=2)
+    stores = Product.query.paginate(page=page, per_page=6)
     return render_template('store-info.html', stdata=stores)
 
 
@@ -428,7 +428,7 @@ def edit_store(id=None):
 def serve_info(page=None):
     if page is None:
         page = 1
-    serves = Serve.query.paginate(page=page, per_page=2)
+    serves = Serve.query.paginate(page=page, per_page=6)
     return render_template('serve-info.html', sedata=serves)
 
 
