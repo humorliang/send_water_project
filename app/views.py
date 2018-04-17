@@ -11,6 +11,7 @@ from wtforms.validators import DataRequired
 from app.form import validate_is_num, validate_not_in_custom, \
     validate_not_in_product, validate_not_in_order
 from functools import wraps
+import re
 
 # 导入字典类
 from collections import defaultdict
@@ -25,6 +26,14 @@ def is_login(fun):
         return fun(*args, **kwargs)
 
     return check_fun
+
+
+# 检查是否是数字
+def is_num(data):
+    if re.match(r'^[0-9]+$', data) is None:
+        return False
+    else:
+        return True
 
 
 # 主界面
@@ -83,7 +92,8 @@ def edit_pwd():
     if request.method == 'POST':
         if form.validate_on_submit():
             data = form.data
-            user = Admin.query.filter_by(username=data['username']).update(dict(password=data['newpwd']))
+            user = Admin.query.filter_by(username=data['username']).update(
+                dict(password=data['newpwd']))
             db.session.commit()
             return redirect(url_for('login'))
     return render_template('edit-pwd.html', form=form)
@@ -106,10 +116,26 @@ def custom_info(page=None):
             num[v.CustomId] = int(v.OrderMoney)
 
     for k, v in num.items():
-        custom = Custom.query.filter_by(CustomId=k).update(dict(CustomConsume=v))
+        custom = Custom.query.filter_by(
+            CustomId=k).update(dict(CustomConsume=v))
         db.session.commit()
     customs = Custom.query.paginate(page=page, per_page=6)
     return render_template('custom-info.html', cdata=customs)
+
+
+# 查询客户信息
+@app.route('/searchCustom', methods=['GET', 'POST'])
+@is_login
+def search_custom():
+    if request.method == 'POST':
+        # return request.form.get('search-info') #获取表单数据
+        data = request.form.get('search-info')
+        if is_num(data):
+            c_info = Custom.query.filter_by(CustomId=data).all()
+            return render_template('s-custom-info.html', cdata=c_info)
+        else:
+            c_info = Custom.query.filter_by(CustomName=data).all()
+            return render_template('s-custom-info.html', cdata=c_info)
 
 
 # 添加客户
@@ -137,6 +163,21 @@ def order_info(page=None):
         page = 1
     orders = Order.query.paginate(page=page, per_page=6)
     return render_template('order-info.html', odata=orders)
+
+
+# 查询订单
+@app.route('/searchOrder', methods=['GET', 'POST'])
+@is_login
+def search_order():
+    if request.method == 'POST':
+        # return request.form.get('search-info') #获取表单数据
+        data = request.form.get('search-info')
+        if is_num(data):
+            c_info = Order.query.filter_by(OrderId=data).all()
+            return render_template('s-order-info.html', odata=c_info)
+        else:
+            c_info = Order.query.filter_by(OrderStatus=data).all()
+            return render_template('s-order-info.html', odata=c_info)
 
 
 # 添加订单
@@ -275,6 +316,21 @@ def distribution_info(page=None):
     return render_template('distribution-info.html', sends=sends)
 
 
+# 查询配送
+@app.route('/searchSend', methods=['GET', 'POST'])
+@is_login
+def search_send():
+    if request.method == 'POST':
+        # return request.form.get('search-info') #获取表单数据
+        data = request.form.get('search-info')
+        if is_num(data):
+            c_info = Send.query.filter_by(OrderId=data).all()
+            return render_template('s-distribution-info.html', sends=c_info)
+        else:
+            c_info = Send.query.filter_by(SendName=data).all()
+            return render_template('s-distribution-info.html', sends=c_info)
+
+
 # 添加配送
 @app.route('/addDistribution', methods=['GET', 'POST'])
 @is_login
@@ -300,6 +356,21 @@ def store_info(page=None):
         page = 1
     stores = Product.query.paginate(page=page, per_page=6)
     return render_template('store-info.html', stdata=stores)
+
+
+# 查询库存
+@app.route('/searchStore', methods=['GET', 'POST'])
+@is_login
+def search_store():
+    if request.method == 'POST':
+        # return request.form.get('search-info') #获取表单数据
+        data = request.form.get('search-info')
+        if is_num(data):
+            c_info = Product.query.filter_by(ProductId=data).all()
+            return render_template('s-store-info.html', stdata=c_info)
+        else:
+            c_info = Product.query.filter_by(ProducerName=data).all()
+            return render_template('s-store-info.html', stdata=c_info)
 
 
 # 添加库存
@@ -430,6 +501,21 @@ def serve_info(page=None):
         page = 1
     serves = Serve.query.paginate(page=page, per_page=6)
     return render_template('serve-info.html', sedata=serves)
+
+
+# 查询售后
+@app.route('/searchServe', methods=['GET', 'POST'])
+@is_login
+def search_serve():
+    if request.method == 'POST':
+        # return request.form.get('search-info') #获取表单数据
+        data = request.form.get('search-info')
+        if is_num(data):
+            c_info = Serve.query.filter_by(ServeId=data).all()
+            return render_template('s-serve-info.html', sedata=c_info)
+        else:
+            c_info = Serve.query.filter_by(ServeInfo=data).all()
+            return render_template('s-serve-info.html', sedata=c_info)
 
 
 # 添加售后

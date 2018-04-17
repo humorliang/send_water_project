@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}
+    库存信息
+{% endblock %}
+{% block content %}
+    <div class="main">
+        <h2 class="sub-header">查找结果
+
+        </h2>
+        {% if stdata %}
+
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>产品编号</th>
+                        <th>产品名称</th>
+                        <th>生产商</th>
+                        <th>生产日期</th>
+                        <th>产品种类</th>
+                        <th>产品价格</th>
+                        <th>库存数量</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for v in stdata %}
+                        <tr>
+                            <td>{{ v.ProductId }}</td>
+                            <td>{{ v.ProductName }}</td>
+                            <td>{{ v.ProducerName }}</td>
+                            <td>{{ v.ProductDate }}</td>
+                            <td>{{ v.ProductType }}</td>
+                            <td>{{ v.ProductPrice }}</td>
+                            <td>{{ v.ProductNum }}</td>
+                            <td>
+                                <a href="{{ url_for('edit_store',id=v.id) }}" class="btn btn-primary btn-xs">编辑</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="text-center text-primary" style="font-size: 20px;"> 没有找到库存信息</div>
+        {% endif %}
+    </div>
+{% endblock %}

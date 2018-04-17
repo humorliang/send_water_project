@@ -5,14 +5,22 @@
 {% endblock %}
 {% block content %}
     <div class="main">
-        <h2 class="sub-header">配送信息</h2>
+        <h2 class="sub-header">配送信息
+            <form class="form-inline pull-right" method="post" action="{{ url_for('search_send') }}">
+                <div class="form-group">
+                    <label class="sr-only" for="search">快速查找</label>
+                    <input type="text" name="search-info" class="form-control" id="search" placeholder="产品编号/配送人">
+                </div>
+                <button type="submit" class="btn btn-primary">查找</button>
+            </form>
+        </h2>
         {% if sends %}
 
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th>产品编号</th>
+                        <th>订单编号</th>
                         <th>产品名称</th>
                         <th>配送人</th>
                         <th>配送日期</th>
