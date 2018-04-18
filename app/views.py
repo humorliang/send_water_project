@@ -9,12 +9,10 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, SelectField, DateField
 from wtforms.validators import DataRequired
 from app.form import validate_is_num, validate_not_in_custom, \
-    validate_not_in_product, validate_not_in_order
+    validate_not_in_product, validate_not_in_order, validate_is_float_num
 from functools import wraps
 import re
 
-# 导入字典类
-from collections import defaultdict
 
 
 # 定义登陆验证装饰器
@@ -161,7 +159,7 @@ def add_custom():
 def order_info(page=None):
     if page is None:
         page = 1
-    orders = Order.query.paginate(page=page, per_page=6)
+    orders = db.session.query(Order, Product).paginate(page=page, per_page=6)
     return render_template('order-info.html', odata=orders)
 
 
@@ -173,10 +171,10 @@ def search_order():
         # return request.form.get('search-info') #获取表单数据
         data = request.form.get('search-info')
         if is_num(data):
-            c_info = Order.query.filter_by(OrderId=data).all()
+            c_info = db.session.query(Order, Product).filter(Order.OrderId == data).all()
             return render_template('s-order-info.html', odata=c_info)
         else:
-            c_info = Order.query.filter_by(OrderStatus=data).all()
+            c_info = db.session.query(Order, Product).filter(Order.OrderStatus == data).all()
             return render_template('s-order-info.html', odata=c_info)
 
 
@@ -188,13 +186,22 @@ def add_order():
     if request.method == 'POST':
         if form.validate_on_submit():
             data = form.data
-            order = Order(OrderId=data['Oid'], CustomId=data['Cid'],
-                          ProductId=data['Pid'], OrderNum=data['Onum'],
-                          OrderDate=data['Odate'], OrderStatus=data['Ostatus'],
-                          OrderMoney=data['Omoney'])
-            db.session.add(order)
-            db.session.commit()
-            return redirect(url_for('order_info', page=1))
+            product = Product.query.filter_by(ProductId=data['Pid']).first()
+
+            if int(product.ProductNum) < int(data['Onum']):
+                flash('该产品库存数量不足')
+                return redirect(url_for('add_order', form=form))
+            else:
+                order = Order(OrderId=data['Oid'], CustomId=data['Cid'],
+                              ProductId=data['Pid'], OrderNum=data['Onum'],
+                              OrderDate=data['Odate'], OrderStatus=data['Ostatus'],
+                              OrderMoney=int(data['Onum']) * int(product.ProductPrice))
+                db.session.add(order)
+                db.session.commit()
+                products = Product.query.filter_by(ProductId=data['Pid']).update(
+                    dict(ProductNum=int(product.ProductNum) - int(data['Onum'])))
+                db.session.commit()
+                return redirect(url_for('order_info', page=1))
     return render_template('add-order.html', form=form)
 
 
@@ -250,7 +257,8 @@ def edit_Order(id=None):
             render_kw={
                 'class': 'form-control',
                 'placeholder': '订单数量',
-                'value': orders.OrderNum
+                'value': orders.OrderNum,
+                'readonly':'true'
             }
         )
         Ostatus = SelectField(
@@ -274,16 +282,6 @@ def edit_Order(id=None):
                 'value': orders.OrderDate
             }
         )
-        Omoney = StringField(
-            validators=[
-                DataRequired('总金额不能为空')
-            ],
-            render_kw={
-                'class': 'form-control',
-                'placeholder': '总金额',
-                'value': orders.OrderMoney
-            }
-        )
         submit = SubmitField(
             label='保存',
             render_kw={
@@ -299,7 +297,7 @@ def edit_Order(id=None):
                 dict(OrderId=data['Oid'], CustomId=data['Cid'],
                      ProductId=data['Pid'], OrderNum=data['Onum'],
                      OrderDate=data['Odate'], OrderStatus=data['Ostatus'],
-                     OrderMoney=data['Omoney'])
+                     )
             )
             db.session.commit()
             return redirect(url_for('order_info', page=1))
@@ -402,7 +400,6 @@ def edit_store(id=None):
         pid = StringField(
             validators=[
                 DataRequired('产品编号不能为空'),
-                validate_not_in_product
             ],
             render_kw={
                 'class': 'form-control',
@@ -452,7 +449,8 @@ def edit_store(id=None):
         )
         price = StringField(
             validators=[
-                DataRequired('产品价格不能为空')
+                DataRequired('产品价格不能为空'),
+                validate_is_float_num
             ],
             render_kw={
                 'class': 'form-control',

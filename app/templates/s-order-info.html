@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
+{% import 'UI/pagination.html' as pg %}
 {% block title %}
     订单信息
 {% endblock %}
 {% block content %}
     <div class="main">
-        <h2 class="sub-header">查找信息</h2>
+        <h2 class="sub-header">查询结果
+        </h2>
         {% if odata %}
             <div class="table-responsive">
                 <table class="table table-striped">
@@ -14,6 +16,7 @@
                         <th>客户编号</th>
                         <th>产品编号</th>
                         <th>订单数量</th>
+                        <th>产品单价</th>
                         <th>订单日期</th>
                         <th>订单状态</th>
                         <th>总金额</th>
@@ -22,22 +25,34 @@
                     </thead>
                     <tbody>
                     {% for v in odata %}
-                        <tr>
-                            <td>{{ v.OrderId }}</td>
-                            <td>{{ v.CustomId }}</td>
-                            <td>{{ v.ProductId }}</td>
-                            <td>{{ v.OrderNum }}</td>
-                            <td>{{ v.OrderDate }}</td>
-                            <td>{{ v.OrderStatus }}</td>
-                            <td>{{ v.OrderMoney }}</td>
-                            <td><a href="{{ url_for('edit_Order',id=v.id) }}" class="btn btn-primary btn-xs">编辑</a></td>
+                        <tr class="or-list">
+                            <td>{{ v.Order.OrderId }}</td>
+                            <td>{{ v.Order.CustomId }}</td>
+                            <td>{{ v.Order.ProductId }}</td>
+                            <td class="or-num">{{ v.Order.OrderNum }}</td>
+                            <td class="or-price">{{ v.Product.ProductPrice }}</td>
+                            <td>{{ v.Order.OrderDate }}</td>
+                            <td>{{ v.Order.OrderStatus }}</td>
+                            <td class="sum-money"></td>
+                            <td><a href="{{ url_for('edit_Order',id=v.Order.id) }}"
+                                   class="btn btn-primary btn-xs">编辑</a></td>
                         </tr>
                     {% endfor %}
                     </tbody>
                 </table>
             </div>
         {% else %}
-            <div class="text-center text-primary" style="font-size: 20px;"> 没有找到订单信息</div>
+            <div class="text-center text-primary" style="font-size: 20px;"> 您目前没有订单信息</div>
         {% endif %}
     </div>
+    <script>
+        oList = document.getElementsByClassName('or-list');
+        for (let i = 0; i < oList.length; i++) {
+            oNum = oList[i].getElementsByClassName('or-num')[0];
+            oPrice = oList[i].getElementsByClassName('or-price')[0];
+            oSum = oList[i].getElementsByClassName('sum-money')[0];
+            oSum.innerHTML = Number(oNum.innerHTML) * Number(oPrice.innerHTML);
+
+        }
+    </script>
 {% endblock %}

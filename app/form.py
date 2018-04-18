@@ -12,6 +12,12 @@ def validate_is_num(form, field):
     data = field.data
     if re.match(r'[0-9]+$', data) is None:
         raise ValidationError('请填写正确的数字')
+# 自定义验证器
+# 数字验证器
+def validate_is_float_num(form, field):
+    data = field.data
+    if re.match(r'([0-9]+$)|([0-9]+\.[0-9]{2}$)', data) is None:
+        raise ValidationError('请填写正确的数字或小数请保留两位')
 
 
 # 客户编号不存在验证器
@@ -348,15 +354,6 @@ class OrderForm(FlaskForm):
             'placeholder': '年-月-日'
         }
     )
-    Omoney = StringField(
-        validators=[
-            DataRequired('总金额不能为空')
-        ],
-        render_kw={
-            'class': 'form-control',
-            'placeholder': '总金额'
-        }
-    )
     submit = SubmitField(
         label='添加',
         render_kw={
@@ -415,7 +412,8 @@ class StoreForm(FlaskForm):
     )
     price = StringField(
         validators=[
-            DataRequired('产品价格不能为空')
+            DataRequired('产品价格不能为空'),
+            validate_is_float_num
         ],
         render_kw={
             'class': 'form-control',

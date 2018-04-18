@@ -5,6 +5,9 @@
 {% block content %}
     <div class="main">
         <h2 class="sub-header">添加订单</h2>
+        {% for msg in get_flashed_messages() %}
+            <h3 class="text-danger text-center">{{ msg }}</h3>
+        {% endfor %}
         <form class="form-horizontal" method="post">
             <div class="form-group ">
                 <label class="col-xs-1 control-label">客户编号</label>
@@ -63,16 +66,6 @@
                     {{ form.Odate }}
                 </div>
                 {% for err in form.Odate.errors %}
-                    <div class="col-xs-3 text-danger">{{ err }}</div>
-                {% endfor %}
-            </div>
-            <div class="form-group ">
-                <label class="col-xs-1 control-label">总金额</label>
-                <div class="col-xs-3">
-                    {#                        <input type="text" class="form-control" placeholder="">#}
-                    {{ form.Omoney }}
-                </div>
-                {% for err in form.Omoney.errors %}
                     <div class="col-xs-3 text-danger">{{ err }}</div>
                 {% endfor %}
             </div>
