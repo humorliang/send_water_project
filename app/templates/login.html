@@ -8,11 +8,27 @@
     <link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static',filename='css/signin.css') }}">
     <title>登陆选项</title>
+    <style>
+        body{
+            background-image: url({{ url_for('static',filename='images/login-bg.png') }});
+            -webkit-background-size: 100%;
+            background-size: 100%;
+        }
+        .container {
+            width: 500px;
+            margin: 100px auto;
+            background-image: url({{ url_for('static',filename='images/form-bg_02.png') }});
+            border-radius: 10px;
+            color: #f4f4f4;
+        }
+
+    </style>
 
 </head>
 
 <body>
 <div class="container">
+    <h1 class="text-center">校园送水服务系统</h1>
     <form class="form-signin" method="POST">
         <h2 class="form-signin-heading text-center">系统登陆</h2>
         <div class="form-label">用户名</div>

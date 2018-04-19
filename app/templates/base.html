@@ -10,6 +10,30 @@
     <link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static',filename='css/navbar.css') }}">
     <title>{% block title %}{% endblock %}</title>
+    <style>
+        body {
+            background-image: url({{ url_for('static',filename='images/main-bg.png') }});
+            -webkit-background-size: 100%;
+            background-size: 100%;
+        }
+
+        body > nav {
+            background-image: url({{ url_for('static',filename='images/header-bg.png') }});
+            -webkit-background-size: 100%;
+            background-size: 100%;
+        }
+        body>div .sub-header{
+            color: #f4f4f4;
+        }
+        body>div .table-responsive{
+            background: #f4f4f4;
+            border-radius: 10px;
+        }
+        body>div .form-horizontal{
+            color: #f4f4f4;
+            padding-left: 100px;
+        }
+    </style>
     {% block style %}{% endblock %}
 </head>
 
