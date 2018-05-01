@@ -1,18 +1,11 @@
-{% extends 'base.html' %}
-{% import 'UI/pagination.html' as pg %}
+{% extends 'admin/base.html' %}
 {% block title %}
     库存信息
 {% endblock %}
 {% block content %}
     <div class="main">
-        <h2 class="sub-header">库存信息
-            <form class="form-inline pull-right" method="post" action="{{ url_for('search_store') }}">
-                <div class="form-group">
-                    <label class="sr-only" for="search">快速查找</label>
-                    <input type="text" name="search-info" class="form-control" id="search" placeholder="产品编号/生产商">
-                </div>
-                <button type="submit" class="btn btn-primary">查找</button>
-            </form>
+        <h2 class="sub-header">查找结果
+
         </h2>
         {% if stdata %}
 
@@ -31,7 +24,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% for v in stdata.items %}
+                    {% for v in stdata %}
                         <tr>
                             <td>{{ v.ProductId }}</td>
                             <td>{{ v.ProductName }}</td>
@@ -41,18 +34,15 @@
                             <td>{{ v.ProductPrice }}</td>
                             <td>{{ v.ProductNum }}</td>
                             <td>
-                                <a href="{{ url_for('edit_store',id=v.id) }}" class="btn btn-primary btn-xs">编辑</a>
+                                <a href="{{ url_for('admin.edit_store',id=v.id) }}" class="btn btn-primary btn-xs">编辑</a>
                             </td>
                         </tr>
                     {% endfor %}
                     </tbody>
                 </table>
             </div>
-            <div class="center-block">
-                {{ pg.page(stdata,'store_info') }}
-            </div>
         {% else %}
-            <div class="text-center text-primary" style="font-size: 20px;"> 您目前没有库存信息</div>
+            <div class="text-center text-primary" style="font-size: 20px;"> 没有找到库存信息</div>
         {% endif %}
     </div>
 {% endblock %}

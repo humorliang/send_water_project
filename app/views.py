@@ -1,5 +1,5 @@
-from app.__init__ import app
-from flask import render_template, redirect, flash, session, url_for, request
+# from app.__init__ import app
+from flask import render_template, redirect, flash, session, url_for, request, Blueprint
 from app.models import *
 from app.exts import db
 from app.form import LoginForm, SendForm, ServeForm, StoreForm, OrderForm, CustomForm, RegisterForm, \
@@ -13,6 +13,8 @@ from app.form import validate_is_num, validate_not_in_custom, \
 from functools import wraps
 import re
 
+# 定义蓝图
+admin = Blueprint('admin', __name__)
 
 
 # 定义登陆验证装饰器
@@ -20,7 +22,7 @@ def is_login(fun):
     @wraps(fun)
     def check_fun(*args, **kwargs):
         if 'admin' not in session:
-            return redirect(url_for('login'))
+            return redirect(url_for('admin.login'))
         return fun(*args, **kwargs)
 
     return check_fun
@@ -35,14 +37,14 @@ def is_num(data):
 
 
 # 主界面
-@app.route('/')
+@admin.route('/')
 @is_login
 def index():
-    return render_template('index.html')
+    return render_template('admin/index.html')
 
 
 # 登陆路由
-@app.route('/login', methods=['GET', 'POST'])
+@admin.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if request.method == 'POST':
@@ -53,23 +55,23 @@ def login():
                 session['admin'] = data['username']
                 if data['remember']:
                     session.permanent = True
-                return redirect(url_for('index'))
+                return redirect(url_for('admin.index'))
             else:
                 flash('密码错误')
-                return redirect(url_for('login'))
-    return render_template('login.html', form=form)
+                return redirect(url_for('admin.login'))
+    return render_template('admin/login.html', form=form)
 
 
 # 退出
-@app.route('/loginOut')
+@admin.route('/loginOut')
 @is_login
 def login_out():
     session.pop('admin', None)
-    return redirect(url_for('login'))
+    return redirect(url_for('admin.login'))
 
 
 # 注册
-@app.route('/register', methods=['GET', 'POST'])
+@admin.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegisterForm()
     if request.method == 'POST':
@@ -79,11 +81,11 @@ def register():
             db.session.add(user)
             db.session.commit()
             return redirect(url_for('login'))
-    return render_template('register.html', form=form)
+    return render_template('admin/register.html', form=form)
 
 
 # 修改密码
-@app.route('/editPwd', methods=['GET', "POST"])
+@admin.route('/editPwd', methods=['GET', "POST"])
 @is_login
 def edit_pwd():
     form = EditPwdForm()
@@ -93,12 +95,12 @@ def edit_pwd():
             user = Admin.query.filter_by(username=data['username']).update(
                 dict(password=data['newpwd']))
             db.session.commit()
-            return redirect(url_for('login'))
-    return render_template('edit-pwd.html', form=form)
+            return redirect(url_for('admin.login'))
+    return render_template('admin/edit-pwd.html', form=form)
 
 
 # 客户信息
-@app.route('/customInfo/<int:page>/')
+@admin.route('/customInfo/<int:page>/')
 @is_login
 def custom_info(page=None):
     if page is None:
@@ -118,11 +120,11 @@ def custom_info(page=None):
             CustomId=k).update(dict(CustomConsume=v))
         db.session.commit()
     customs = Custom.query.paginate(page=page, per_page=6)
-    return render_template('custom-info.html', cdata=customs)
+    return render_template('admin/custom-info.html', cdata=customs)
 
 
 # 查询客户信息
-@app.route('/searchCustom', methods=['GET', 'POST'])
+@admin.route('/searchCustom', methods=['GET', 'POST'])
 @is_login
 def search_custom():
     if request.method == 'POST':
@@ -130,14 +132,14 @@ def search_custom():
         data = request.form.get('search-info')
         if is_num(data):
             c_info = Custom.query.filter_by(CustomId=data).all()
-            return render_template('s-custom-info.html', cdata=c_info)
+            return render_template('admin/s-custom-info.html', cdata=c_info)
         else:
             c_info = Custom.query.filter_by(CustomName=data).all()
-            return render_template('s-custom-info.html', cdata=c_info)
+            return render_template('admin/s-custom-info.html', cdata=c_info)
 
 
 # 添加客户
-@app.route('/addCustom', methods=['GET', 'POST'])
+@admin.route('/addCustom', methods=['GET', 'POST'])
 @is_login
 def add_custom():
     form = CustomForm()
@@ -149,22 +151,22 @@ def add_custom():
                             CustomAddress=data['customaddress'], CustomType=data['customtype'])
             db.session.add(custom)
             db.session.commit()
-            return redirect(url_for('custom_info', page=1))
-    return render_template('add-custom.html', form=form)
+            return redirect(url_for('admin.custom_info', page=1))
+    return render_template('admin/add-custom.html', form=form)
 
 
 # 订单信息
-@app.route('/orderInfo/<int:page>/')
+@admin.route('/orderInfo/<int:page>/')
 @is_login
 def order_info(page=None):
     if page is None:
         page = 1
     orders = db.session.query(Order, Product).paginate(page=page, per_page=6)
-    return render_template('order-info.html', odata=orders)
+    return render_template('admin/order-info.html', odata=orders)
 
 
 # 查询订单
-@app.route('/searchOrder', methods=['GET', 'POST'])
+@admin.route('/searchOrder', methods=['GET', 'POST'])
 @is_login
 def search_order():
     if request.method == 'POST':
@@ -172,14 +174,14 @@ def search_order():
         data = request.form.get('search-info')
         if is_num(data):
             c_info = db.session.query(Order, Product).filter(Order.OrderId == data).all()
-            return render_template('s-order-info.html', odata=c_info)
+            return render_template('admin/s-order-info.html', odata=c_info)
         else:
             c_info = db.session.query(Order, Product).filter(Order.OrderStatus == data).all()
-            return render_template('s-order-info.html', odata=c_info)
+            return render_template('admin/s-order-info.html', odata=c_info)
 
 
 # 添加订单
-@app.route('/addOrder', methods=['GET', 'POST'])
+@admin.route('/addOrder', methods=['GET', 'POST'])
 @is_login
 def add_order():
     form = OrderForm()
@@ -201,12 +203,12 @@ def add_order():
                 products = Product.query.filter_by(ProductId=data['Pid']).update(
                     dict(ProductNum=int(product.ProductNum) - int(data['Onum'])))
                 db.session.commit()
-                return redirect(url_for('order_info', page=1))
-    return render_template('add-order.html', form=form)
+                return redirect(url_for('admin.order_info', page=1))
+    return render_template('admin/add-order.html', form=form)
 
 
 # 编辑订单
-@app.route('/editOrder/<int:id>/', methods=['GET', 'POST'])
+@admin.route('/editOrder/<int:id>/', methods=['GET', 'POST'])
 @is_login
 def edit_Order(id=None):
     # 订单信息模型
@@ -258,7 +260,7 @@ def edit_Order(id=None):
                 'class': 'form-control',
                 'placeholder': '订单数量',
                 'value': orders.OrderNum,
-                'readonly':'true'
+                'readonly': 'true'
             }
         )
         Ostatus = SelectField(
@@ -300,22 +302,22 @@ def edit_Order(id=None):
                      )
             )
             db.session.commit()
-            return redirect(url_for('order_info', page=1))
-    return render_template('edit-order.html', form=form)
+            return redirect(url_for('admin.order_info', page=1))
+    return render_template('admin/edit-order.html', form=form)
 
 
 # 配送信息
-@app.route('/distributionInfo/<int:page>/')
+@admin.route('/distributionInfo/<int:page>/')
 @is_login
 def distribution_info(page=None):
     if page is None:
         page = 1
     sends = Send.query.paginate(page=page, per_page=6)
-    return render_template('distribution-info.html', sends=sends)
+    return render_template('admin/distribution-info.html', sends=sends)
 
 
 # 查询配送
-@app.route('/searchSend', methods=['GET', 'POST'])
+@admin.route('/searchSend', methods=['GET', 'POST'])
 @is_login
 def search_send():
     if request.method == 'POST':
@@ -323,14 +325,14 @@ def search_send():
         data = request.form.get('search-info')
         if is_num(data):
             c_info = Send.query.filter_by(OrderId=data).all()
-            return render_template('s-distribution-info.html', sends=c_info)
+            return render_template('admin/s-distribution-info.html', sends=c_info)
         else:
             c_info = Send.query.filter_by(SendName=data).all()
-            return render_template('s-distribution-info.html', sends=c_info)
+            return render_template('admin/s-distribution-info.html', sends=c_info)
 
 
 # 添加配送
-@app.route('/addDistribution', methods=['GET', 'POST'])
+@admin.route('/addDistribution', methods=['GET', 'POST'])
 @is_login
 def add_distribution():
     form = SendForm()
@@ -342,22 +344,22 @@ def add_distribution():
                          SendPhone=data['Sphone'], SendAddress=data['Saddress'])
             db.session.add(sends)
             db.session.commit()
-            return redirect(url_for('distribution_info', page=1))
-    return render_template('add-distribution.html', form=form)
+            return redirect(url_for('admin.distribution_info', page=1))
+    return render_template('admin/add-distribution.html', form=form)
 
 
 # 库存信息
-@app.route('/storeInfo/<int:page>/')
+@admin.route('/storeInfo/<int:page>/')
 @is_login
 def store_info(page=None):
     if page is None:
         page = 1
     stores = Product.query.paginate(page=page, per_page=6)
-    return render_template('store-info.html', stdata=stores)
+    return render_template('admin/store-info.html', stdata=stores)
 
 
 # 查询库存
-@app.route('/searchStore', methods=['GET', 'POST'])
+@admin.route('/searchStore', methods=['GET', 'POST'])
 @is_login
 def search_store():
     if request.method == 'POST':
@@ -365,14 +367,14 @@ def search_store():
         data = request.form.get('search-info')
         if is_num(data):
             c_info = Product.query.filter_by(ProductId=data).all()
-            return render_template('s-store-info.html', stdata=c_info)
+            return render_template('admin/s-store-info.html', stdata=c_info)
         else:
             c_info = Product.query.filter_by(ProducerName=data).all()
-            return render_template('s-store-info.html', stdata=c_info)
+            return render_template('admin/s-store-info.html', stdata=c_info)
 
 
 # 添加库存
-@app.route('/addStore', methods=['GET', 'POST'])
+@admin.route('/addStore', methods=['GET', 'POST'])
 @is_login
 def add_store():
     form = StoreForm()
@@ -385,12 +387,12 @@ def add_store():
                               ProductNum=data['pnum'])
             db.session.add(product)
             db.session.commit()
-            return redirect(url_for('store_info', page=1))
-    return render_template('add-store.html', form=form)
+            return redirect(url_for('admin.store_info', page=1))
+    return render_template('admin/add-store.html', form=form)
 
 
 # 编辑库存
-@app.route('/editStore/<int:id>/', methods=['GET', 'POST'])
+@admin.route('/editStore/<int:id>/', methods=['GET', 'POST'])
 @is_login
 def edit_store(id=None):
     store = Product.query.filter_by(id=id).first()
@@ -487,22 +489,22 @@ def edit_store(id=None):
                      ProductNum=data['pnum'])
             )
             db.session.commit()
-            return redirect(url_for('store_info', page=1))
-    return render_template('edit-store.html', form=form)
+            return redirect(url_for('admin.store_info', page=1))
+    return render_template('admin/edit-store.html', form=form)
 
 
 # 售后信息
-@app.route('/serveInfo/<int:page>/')
+@admin.route('/serveInfo/<int:page>/')
 @is_login
 def serve_info(page=None):
     if page is None:
         page = 1
     serves = Serve.query.paginate(page=page, per_page=6)
-    return render_template('serve-info.html', sedata=serves)
+    return render_template('admin/serve-info.html', sedata=serves)
 
 
 # 查询售后
-@app.route('/searchServe', methods=['GET', 'POST'])
+@admin.route('/searchServe', methods=['GET', 'POST'])
 @is_login
 def search_serve():
     if request.method == 'POST':
@@ -510,14 +512,14 @@ def search_serve():
         data = request.form.get('search-info')
         if is_num(data):
             c_info = Serve.query.filter_by(ServeId=data).all()
-            return render_template('s-serve-info.html', sedata=c_info)
+            return render_template('admin/s-serve-info.html', sedata=c_info)
         else:
             c_info = Serve.query.filter_by(ServeInfo=data).all()
-            return render_template('s-serve-info.html', sedata=c_info)
+            return render_template('admin/s-serve-info.html', sedata=c_info)
 
 
 # 添加售后
-@app.route('/addServe', methods=['GET', 'POST'])
+@admin.route('/addServe', methods=['GET', 'POST'])
 @is_login
 def add_serve():
     form = ServeForm()
@@ -529,5 +531,5 @@ def add_serve():
                            ServeDate=data['Sedate'], ServeInfo=data['Seinfo'])
             db.session.add(serves)
             db.session.commit()
-            return redirect(url_for('serve_info', page=1))
-    return render_template('add-serve.html', form=form)
+            return redirect(url_for('admin.serve_info', page=1))
+    return render_template('admin/add-serve.html', form=form)

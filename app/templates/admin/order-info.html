@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'admin/base.html' %}
 {% import 'UI/pagination.html' as pg %}
 {% block title %}
     订单信息
@@ -6,7 +6,7 @@
 {% block content %}
     <div class="main">
         <h2 class="sub-header">订单信息
-            <form class="form-inline pull-right" method="post" action="{{ url_for('search_order') }}">
+            <form class="form-inline pull-right" method="post" action="{{ url_for('admin.search_order') }}">
                 <div class="form-group">
                     <label class="sr-only" for="search">快速查找</label>
                     <input type="text" name="search-info" class="form-control" id="search" placeholder="订单编号/订单状态">
@@ -41,7 +41,7 @@
                             <td>{{ v.Order.OrderDate }}</td>
                             <td>{{ v.Order.OrderStatus }}</td>
                             <td class="sum-money"></td>
-                            <td><a href="{{ url_for('edit_Order',id=v.Order.id) }}"
+                            <td><a href="{{ url_for('admin.edit_Order',id=v.Order.id) }}"
                                    class="btn btn-primary btn-xs">编辑</a></td>
                         </tr>
                     {% endfor %}
@@ -49,7 +49,7 @@
                 </table>
             </div>
             <div class="center-block">
-                {{ pg.page(odata,'order_info') }}
+                {{ pg.page(odata,'admin.order_info') }}
             </div>
         {% else %}
             <div class="text-center text-primary" style="font-size: 20px;"> 您目前没有订单信息</div>

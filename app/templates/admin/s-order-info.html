@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'admin/base.html' %}
 {% import 'UI/pagination.html' as pg %}
 {% block title %}
     订单信息
@@ -34,7 +34,7 @@
                             <td>{{ v.Order.OrderDate }}</td>
                             <td>{{ v.Order.OrderStatus }}</td>
                             <td class="sum-money"></td>
-                            <td><a href="{{ url_for('edit_Order',id=v.Order.id) }}"
+                            <td><a href="{{ url_for('admin.edit_Order',id=v.Order.id) }}"
                                    class="btn btn-primary btn-xs">编辑</a></td>
                         </tr>
                     {% endfor %}

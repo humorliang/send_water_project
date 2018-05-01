@@ -52,10 +52,10 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="{{ url_for('custom_info',page=1) }}">客户信息</a>
+                            <a href="{{ url_for('admin.custom_info',page=1) }}">客户信息</a>
                         </li>
                         <li>
-                            <a href="{{ url_for('add_custom') }}">添加信息</a>
+                            <a href="{{ url_for('admin.add_custom') }}">添加信息</a>
                         </li>
 
                     </ul>
@@ -67,10 +67,10 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="{{ url_for('order_info',page=1) }}">订单信息</a>
+                            <a href="{{ url_for('admin.order_info',page=1) }}">订单信息</a>
                         </li>
                         <li>
-                            <a href="{{ url_for('add_order') }}">添加订单</a>
+                            <a href="{{ url_for('admin.add_order') }}">添加订单</a>
                         </li>
 
                     </ul>
@@ -82,10 +82,10 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="{{ url_for('store_info',page=1) }}">库存信息</a>
+                            <a href="{{ url_for('admin.store_info',page=1) }}">库存信息</a>
                         </li>
                         <li>
-                            <a href="{{ url_for('add_store') }}">添加库存</a>
+                            <a href="{{ url_for('admin.add_store') }}">添加库存</a>
                         </li>
 
                     </ul>
@@ -97,10 +97,10 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="{{ url_for('distribution_info',page=1) }}">配送信息</a>
+                            <a href="{{ url_for('admin.distribution_info',page=1) }}">配送信息</a>
                         </li>
                         <li>
-                            <a href="{{ url_for('add_distribution') }}">添加配送</a>
+                            <a href="{{ url_for('admin.add_distribution') }}">添加配送</a>
                         </li>
 
                     </ul>
@@ -112,10 +112,10 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="{{ url_for('serve_info',page=1) }}">售后信息</a>
+                            <a href="{{ url_for('admin.serve_info',page=1) }}">售后信息</a>
                         </li>
                         <li>
-                            <a href="{{ url_for('add_serve') }}">添加售后</a>
+                            <a href="{{ url_for('admin.add_serve') }}">添加售后</a>
                         </li>
 
                     </ul>
@@ -129,10 +129,10 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="{{ url_for('edit_pwd') }}">修改密码</a>
+                            <a href="{{ url_for('admin.edit_pwd') }}">修改密码</a>
                         </li>
                         <li>
-                            <a href="{{ url_for('login_out') }}">退出登录</a>
+                            <a href="{{ url_for('admin.login_out') }}">退出登录</a>
                         </li>
                     </ul>
                 </li>

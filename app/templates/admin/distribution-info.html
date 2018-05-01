@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'admin/base.html' %}
 {% import 'UI/pagination.html' as pg %}
 {% block title %}
     配送信息
@@ -6,7 +6,7 @@
 {% block content %}
     <div class="main">
         <h2 class="sub-header">配送信息
-            <form class="form-inline pull-right" method="post" action="{{ url_for('search_send') }}">
+            <form class="form-inline pull-right" method="post" action="{{ url_for('admin.search_send') }}">
                 <div class="form-group">
                     <label class="sr-only" for="search">快速查找</label>
                     <input type="text" name="search-info" class="form-control" id="search" placeholder="产品编号/配送人">
@@ -43,7 +43,7 @@
                 </table>
             </div>
             <div class="center-block">
-                {{ pg.page(sends,'distribution_info') }}
+                {{ pg.page(sends,'admin.distribution_info') }}
             </div>
         {% else %}
             <div class="text-center text-primary" style="font-size: 20px;"> 您目前没有配送信息</div>

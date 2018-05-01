@@ -1,71 +1,69 @@
-{% extends 'base.html' %}
+{% extends 'admin/base.html' %}
+
 {% block title %}
-    添加订单信息
+    主页面
 {% endblock %}
 {% block content %}
     <div class="main">
-        <h2 class="sub-header">添加订单</h2>
-        {% for msg in get_flashed_messages() %}
-            <h3 class="text-danger text-center">{{ msg }}</h3>
-        {% endfor %}
+        <h2 class="sub-header">添加配送</h2>
         <form class="form-horizontal" method="post">
-            <div class="form-group ">
-                <label class="col-xs-1 control-label">客户编号</label>
-                <div class="col-xs-3">
-                    {#                        <input type="text" class="form-control" placeholder="">#}
-                    {{ form.Cid }}
-                </div>
-                {% for err in form.Cid.errors %}
-                    <div class="col-xs-3 text-danger">{{ err }}</div>
-                {% endfor %}
-            </div>
             <div class="form-group ">
                 <label class="col-xs-1 control-label">订单编号</label>
                 <div class="col-xs-3">
                     {#                        <input type="text" class="form-control" placeholder="">#}
                     {{ form.Oid }}
                 </div>
-                {% for err in form.Oid.errors %}
+                 {% for err in form.Oid.errors %}
                     <div class="col-xs-3 text-danger">{{ err }}</div>
                 {% endfor %}
             </div>
             <div class="form-group ">
-                <label class="col-xs-1 control-label">产品编号</label>
+                <label class="col-xs-1 control-label">产品名称</label>
                 <div class="col-xs-3">
                     {#                        <input type="text" class="form-control" placeholder="">#}
-                    {{ form.Pid }}
+                    {{ form.Pname }}
                 </div>
-                {% for err in form.Pid.errors %}
+                 {% for err in form.Pname.errors %}
                     <div class="col-xs-3 text-danger">{{ err }}</div>
                 {% endfor %}
             </div>
             <div class="form-group ">
-                <label class="col-xs-1 control-label">订单数量</label>
+                <label class="col-xs-1 control-label">配送人</label>
                 <div class="col-xs-3">
                     {#                        <input type="text" class="form-control" placeholder="">#}
-                    {{ form.Onum }}
+                    {{ form.Sname }}
                 </div>
-                {% for err in form.Onum.errors %}
+                 {% for err in form.Sname.errors %}
                     <div class="col-xs-3 text-danger">{{ err }}</div>
                 {% endfor %}
             </div>
             <div class="form-group ">
-                <label class="col-xs-1 control-label">订单状态</label>
+                <label class="col-xs-1 control-label">配送日期</label>
                 <div class="col-xs-3">
                     {#                        <input type="text" class="form-control" placeholder="">#}
-                    {{ form.Ostatus }}
+                    {{ form.Sdate }}
                 </div>
-                {% for err in form.Ostatus.errors %}
+                 {% for err in form.Sdate.errors %}
                     <div class="col-xs-3 text-danger">{{ err }}</div>
                 {% endfor %}
             </div>
             <div class="form-group ">
-                <label class="col-xs-1 control-label">订单日期</label>
+                <label class="col-xs-1 control-label">联系方式</label>
                 <div class="col-xs-3">
                     {#                        <input type="text" class="form-control" placeholder="">#}
-                    {{ form.Odate }}
+                    {{ form.Sphone }}
                 </div>
-                {% for err in form.Odate.errors %}
+                 {% for err in form.Sphone.errors %}
+                    <div class="col-xs-3 text-danger">{{ err }}</div>
+                {% endfor %}
+            </div>
+            <div class="form-group ">
+                <label class="col-xs-1 control-label">配送地址</label>
+                <div class="col-xs-3">
+                    {#                        <input type="text" class="form-control" placeholder="">#}
+                    {{ form.Saddress }}
+                </div>
+                 {% for err in form.Saddress.errors %}
                     <div class="col-xs-3 text-danger">{{ err }}</div>
                 {% endfor %}
             </div>
@@ -85,7 +83,7 @@
 
         //执行一个laydate实例
         laydate.render({
-            elem: '#Odate', //指定元素
+            elem: '#Sdate', //指定元素
             type: 'date'
         });
 

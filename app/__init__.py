@@ -15,5 +15,13 @@ app = Flask(__name__)
 # 将配置文件导入app
 app.config.from_object(config)
 
+# 注册蓝图
+from app.mainView import home as home_b
+
+app.register_blueprint(home_b)
+from app.views import admin as admin_b
+
+app.register_blueprint(admin_b, url_prefix='/admin')
+
 # 将app导入db示例中
 db.init_app(app)
