@@ -10,7 +10,7 @@
     <title>注册页面</title>
     <style>
         body {
-            background-image: url({{ url_for('static',filename='images/login-bg.png')}});
+            background: #ccc;
             -webkit-background-size: 100%;
             background-size: 100%;
         }
@@ -59,7 +59,7 @@
                 <div class="text-danger">{{ err }}</div>
             {% endfor %}
         </div>
-        <div >
+        <div>
             <div class="form-label">联系方式</div>
             <div class="">
                 {#                        <input type="text" class="form-control" placeholder="">#}
@@ -86,7 +86,7 @@
 
             {{ form.submit }}
         </div>
-            {#<button class="btn btn-lg btn-primary btn-block" type="submit">注册</button>#}
+        {#<button class="btn btn-lg btn-primary btn-block" type="submit">注册</button>#}
     </form>
 </div>
 </body>

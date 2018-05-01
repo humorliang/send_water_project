@@ -2,32 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bb07d998-f11a-4bab-aa45-a7b28866cfc1" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/homeform.py" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/templates/home/add-order.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/templates/home/base.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/templates/home/order-info.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/templates/home/send-info.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/templates/home/serve-info.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/text.py" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/app/form.py" afterPath="$PROJECT_DIR$/app/form.py" />
-      <change beforePath="$PROJECT_DIR$/app/mainView.py" afterPath="$PROJECT_DIR$/app/mainView.py" />
-      <change beforePath="$PROJECT_DIR$/app/models.py" afterPath="$PROJECT_DIR$/app/models.py" />
-      <change beforePath="$PROJECT_DIR$/app/templates/admin/add-custom.html" afterPath="$PROJECT_DIR$/app/templates/admin/add-custom.html" />
-      <change beforePath="$PROJECT_DIR$/app/templates/admin/add-order.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/templates/admin/base.html" afterPath="$PROJECT_DIR$/app/templates/admin/base.html" />
-      <change beforePath="$PROJECT_DIR$/app/templates/admin/custom-info.html" afterPath="$PROJECT_DIR$/app/templates/admin/custom-info.html" />
-      <change beforePath="$PROJECT_DIR$/app/templates/admin/edit-order.html" afterPath="$PROJECT_DIR$/app/templates/admin/edit-order.html" />
-      <change beforePath="$PROJECT_DIR$/app/templates/admin/order-info.html" afterPath="$PROJECT_DIR$/app/templates/admin/order-info.html" />
-      <change beforePath="$PROJECT_DIR$/app/templates/admin/s-custom-info.html" afterPath="$PROJECT_DIR$/app/templates/admin/s-custom-info.html" />
-      <change beforePath="$PROJECT_DIR$/app/templates/admin/s-order-info.html" afterPath="$PROJECT_DIR$/app/templates/admin/s-order-info.html" />
-      <change beforePath="$PROJECT_DIR$/app/templates/home/index.html" afterPath="$PROJECT_DIR$/app/templates/home/index.html" />
-      <change beforePath="$PROJECT_DIR$/app/views.py" afterPath="$PROJECT_DIR$/app/views.py" />
-      <change beforePath="$PROJECT_DIR$/migrations/README" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/migrations/alembic.ini" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/migrations/env.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/migrations/script.py.mako" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/migrations/versions/f574e7b8b962_.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/app/templates/home/login.html" afterPath="$PROJECT_DIR$/app/templates/home/login.html" />
+      <change beforePath="$PROJECT_DIR$/app/templates/home/register.html" afterPath="$PROJECT_DIR$/app/templates/home/register.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -42,66 +18,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views.py">
+      <file leaf-file-name="login.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/templates/home/login.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="113" column="26" lean-forward="true" selection-start-line="113" selection-start-column="26" selection-end-line="113" selection-end-column="26" />
-              <folding>
-                <element signature="e#926#1016#0" expanded="false" />
-                <element signature="e#1187#1782#0" expanded="false" />
-                <element signature="e#1847#1917#0" expanded="false" />
-                <element signature="e#1996#2369#0" expanded="false" />
-                <element signature="e#2459#2847#0" expanded="false" />
-                <element signature="e#3621#4125#0" expanded="false" />
-                <element signature="e#4236#4706#0" expanded="false" />
-                <element signature="e#4796#4973#0" expanded="false" />
-                <element signature="e#5071#5577#0" expanded="false" />
-                <element signature="e#5688#6642#0" expanded="false" />
-                <element signature="e#5805#6231#0" expanded="false" />
-                <element signature="e#6746#6906#0" expanded="false" />
-                <element signature="e#7039#7464#0" expanded="false" />
-                <element signature="e#7570#8121#0" expanded="false" />
-                <element signature="e#8211#8370#0" expanded="false" />
-                <element signature="e#8468#8930#0" expanded="false" />
-                <element signature="e#9022#9643#0" expanded="false" />
-                <element signature="e#9754#12655#0" expanded="false" />
-                <element signature="e#9853#12025#0" expanded="false" />
-                <element signature="e#12091#12592#0" expanded="false" />
-                <element signature="e#12745#12902#0" expanded="false" />
-                <element signature="e#13000#13453#0" expanded="false" />
-                <element signature="e#13545#14031#0" expanded="false" />
-              </folding>
+            <state relative-caret-position="108">
+              <caret line="12" column="30" lean-forward="false" selection-start-line="12" selection-start-column="30" selection-end-line="12" selection-end-column="30" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="form.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/form.py">
+      <file leaf-file-name="register.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/templates/home/register.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="341">
-              <caret line="50" column="35" lean-forward="true" selection-start-line="50" selection-start-column="35" selection-end-line="50" selection-end-column="35" />
-              <folding>
-                <element signature="e#0#25#0" expanded="true" />
-                <element signature="e#318#420#0" expanded="false" />
-                <element signature="e#484#616#0" expanded="false" />
-                <element signature="e#677#813#0" expanded="false" />
-                <element signature="e#870#1007#0" expanded="false" />
-                <element signature="e#1067#1201#0" expanded="false" />
-                <element signature="e#1450#1595#0" expanded="false" />
-                <element signature="e#1649#1795#0" expanded="false" />
-                <element signature="e#1849#1978#0" expanded="false" />
-                <element signature="e#2035#2165#0" expanded="false" />
-                <element signature="e#2216#2405#0" expanded="false" />
-                <element signature="e#2458#2606#0" expanded="false" />
-                <element signature="e#2648#3272#0" expanded="false" />
-                <element signature="e#3317#4134#0" expanded="false" />
-                <element signature="e#4178#5236#0" expanded="false" />
-                <element signature="e#5281#5841#0" expanded="false" />
-                <element signature="e#7506#9123#0" expanded="false" />
-                <element signature="e#9164#10551#0" expanded="false" />
-                <element signature="e#10593#11547#0" expanded="false" />
-              </folding>
+            <state relative-caret-position="216">
+              <caret line="12" column="29" lean-forward="true" selection-start-line="12" selection-start-column="29" selection-end-line="12" selection-end-column="29" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -162,10 +94,8 @@
         <option value="$PROJECT_DIR$/app/templates/admin/serve-info.html" />
         <option value="$PROJECT_DIR$/app/templates/admin/login.html" />
         <option value="$PROJECT_DIR$/app/templates/admin/s-store-info.html" />
-        <option value="$PROJECT_DIR$/app/templates/home/login.html" />
         <option value="$PROJECT_DIR$/app/templates/home/index.html" />
         <option value="$PROJECT_DIR$/app/homeform.py" />
-        <option value="$PROJECT_DIR$/app/templates/home/register.html" />
         <option value="$PROJECT_DIR$/app/templates/admin/add-custom.html" />
         <option value="$PROJECT_DIR$/app/templates/admin/custom-info.html" />
         <option value="$PROJECT_DIR$/app/templates/admin/s-custom-info.html" />
@@ -183,6 +113,8 @@
         <option value="$PROJECT_DIR$/app/templates/admin/base.html" />
         <option value="$PROJECT_DIR$/app/views.py" />
         <option value="$PROJECT_DIR$/app/form.py" />
+        <option value="$PROJECT_DIR$/app/templates/home/login.html" />
+        <option value="$PROJECT_DIR$/app/templates/home/register.html" />
       </list>
     </option>
   </component>
@@ -192,7 +124,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="345" />
     <option name="y" value="8" />
     <option name="width" value="763" />
@@ -229,6 +161,19 @@
               <item name="SendWaterProject" type="b2602c69:ProjectViewProjectNode" />
               <item name="SendWaterProject" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SendWaterProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SendWaterProject" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SendWaterProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SendWaterProject" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="home" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -332,15 +277,15 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="54" y="-8" width="1320" height="784" extended-state="6" />
+    <frame x="54" y="-8" width="1320" height="784" extended-state="7" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32919255" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24844721" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24844721" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32919255" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25079367" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25079367" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -580,14 +525,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/home/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="17" column="20" lean-forward="true" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/templates/home/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -633,14 +570,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="197">
           <caret line="23" column="40" lean-forward="true" selection-start-line="23" selection-start-column="40" selection-end-line="23" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/home/register.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="88" column="14" lean-forward="false" selection-start-line="88" selection-start-column="14" selection-end-line="88" selection-end-column="14" />
           <folding />
         </state>
       </provider>
@@ -795,6 +724,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/form.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="341">
+          <caret line="50" column="35" lean-forward="true" selection-start-line="50" selection-start-column="35" selection-end-line="50" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+            <element signature="e#318#420#0" expanded="false" />
+            <element signature="e#484#616#0" expanded="false" />
+            <element signature="e#677#813#0" expanded="false" />
+            <element signature="e#870#1007#0" expanded="false" />
+            <element signature="e#1067#1201#0" expanded="false" />
+            <element signature="e#1450#1595#0" expanded="false" />
+            <element signature="e#1649#1795#0" expanded="false" />
+            <element signature="e#1849#1978#0" expanded="false" />
+            <element signature="e#2035#2165#0" expanded="false" />
+            <element signature="e#2216#2405#0" expanded="false" />
+            <element signature="e#2458#2606#0" expanded="false" />
+            <element signature="e#2648#3272#0" expanded="false" />
+            <element signature="e#3317#4134#0" expanded="false" />
+            <element signature="e#4178#5236#0" expanded="false" />
+            <element signature="e#5281#5841#0" expanded="false" />
+            <element signature="e#7506#9123#0" expanded="false" />
+            <element signature="e#9164#10551#0" expanded="false" />
+            <element signature="e#10593#11547#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="234">
@@ -827,31 +784,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/form.py">
+    <entry file="file://$PROJECT_DIR$/app/templates/home/login.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
-          <caret line="50" column="35" lean-forward="true" selection-start-line="50" selection-start-column="35" selection-end-line="50" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-            <element signature="e#318#420#0" expanded="false" />
-            <element signature="e#484#616#0" expanded="false" />
-            <element signature="e#677#813#0" expanded="false" />
-            <element signature="e#870#1007#0" expanded="false" />
-            <element signature="e#1067#1201#0" expanded="false" />
-            <element signature="e#1450#1595#0" expanded="false" />
-            <element signature="e#1649#1795#0" expanded="false" />
-            <element signature="e#1849#1978#0" expanded="false" />
-            <element signature="e#2035#2165#0" expanded="false" />
-            <element signature="e#2216#2405#0" expanded="false" />
-            <element signature="e#2458#2606#0" expanded="false" />
-            <element signature="e#2648#3272#0" expanded="false" />
-            <element signature="e#3317#4134#0" expanded="false" />
-            <element signature="e#4178#5236#0" expanded="false" />
-            <element signature="e#5281#5841#0" expanded="false" />
-            <element signature="e#7506#9123#0" expanded="false" />
-            <element signature="e#9164#10551#0" expanded="false" />
-            <element signature="e#10593#11547#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="108">
+          <caret line="12" column="30" lean-forward="false" selection-start-line="12" selection-start-column="30" selection-end-line="12" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/templates/home/register.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="12" column="29" lean-forward="true" selection-start-line="12" selection-start-column="29" selection-end-line="12" selection-end-column="29" />
+          <folding />
         </state>
       </provider>
     </entry>
