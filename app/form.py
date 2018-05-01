@@ -12,6 +12,8 @@ def validate_is_num(form, field):
     data = field.data
     if re.match(r'[0-9]+$', data) is None:
         raise ValidationError('请填写正确的数字')
+
+
 # 自定义验证器
 # 数字验证器
 def validate_is_float_num(form, field):
@@ -23,15 +25,16 @@ def validate_is_float_num(form, field):
 # 客户编号不存在验证器
 def validate_not_in_custom(form, field):
     data = field.data
-    num = Custom.query.filter(Custom.CustomId == data).count()
+    num = Custom.query.filter(Custom.id == data).count()
     if num == 0:
         raise ValidationError('您输入的客户编号不存在')
 
 
 # 客户编号存在验证器
+
 def validate_in_custom(form, field):
     data = field.data
-    num = Custom.query.filter(Custom.CustomId == data).count()
+    num = Custom.query.filter(Custom.id == data).count()
     if num != 0:
         raise ValidationError('您输入的客户编号已经存在')
 
@@ -39,7 +42,7 @@ def validate_in_custom(form, field):
 # 订单编号不存在验证器
 def validate_not_in_order(form, field):
     data = field.data
-    num = Order.query.filter(Order.OrderId == data).count()
+    num = Order.query.filter(Order.id == data).count()
     if num == 0:
         raise ValidationError('您输入的订单编号不存在')
 
@@ -47,7 +50,7 @@ def validate_not_in_order(form, field):
 # 订单编号存在验证器
 def validate_in_order(form, field):
     data = field.data
-    num = Order.query.filter(Order.OrderId == data).count()
+    num = Order.query.filter(Order.id == data).count()
     if num != 0:
         raise ValidationError('您输入的订单编号已经存在')
 
@@ -222,46 +225,6 @@ class EditPwdForm(FlaskForm):
 
 # 客户信息表单
 class CustomForm(FlaskForm):
-    customid = StringField(
-        validators=[
-            DataRequired('客户编号不能为空'),
-            validate_in_custom,
-            validate_is_num
-        ],
-        render_kw={
-            'class': 'form-control',
-            'placeholder': '客户编号'
-        }
-    )
-    customname = StringField(
-        validators=[
-            DataRequired('客户姓名不能为空'),
-
-        ],
-        render_kw={
-            'class': 'form-control',
-            'placeholder': '客户姓名'
-        }
-    )
-    customphone = StringField(
-        validators=[
-            DataRequired('联系方式不能为空'),
-            validate_is_phone
-        ],
-        render_kw={
-            'class': 'form-control',
-            'placeholder': '联系方式'
-        }
-    )
-    customaddress = StringField(
-        validators=[
-            DataRequired('客户地址不能为空')
-        ],
-        render_kw={
-            'class': 'form-control',
-            'placeholder': '客户地址'
-        }
-    )
     customaccount = StringField(
         validators=[
             DataRequired('账户金额不能为空'),

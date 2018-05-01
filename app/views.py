@@ -80,7 +80,7 @@ def register():
             user = Admin(username=data['username'], password=data['pwd'])
             db.session.add(user)
             db.session.commit()
-            return redirect(url_for('login'))
+            return redirect(url_for('admin.login'))
     return render_template('admin/register.html', form=form)
 
 
@@ -117,7 +117,7 @@ def custom_info(page=None):
 
     for k, v in num.items():
         custom = Custom.query.filter_by(
-            CustomId=k).update(dict(CustomConsume=v))
+            id=k).update(dict(CustomConsume=v))
         db.session.commit()
     customs = Custom.query.paginate(page=page, per_page=6)
     return render_template('admin/custom-info.html', cdata=customs)
@@ -131,7 +131,9 @@ def search_custom():
         # return request.form.get('search-info') #获取表单数据
         data = request.form.get('search-info')
         if is_num(data):
-            c_info = Custom.query.filter_by(CustomId=data).all()
+            id = int(data)
+            c_info = Custom.query.filter_by(id=id).all()
+            # print(c_info)
             return render_template('admin/s-custom-info.html', cdata=c_info)
         else:
             c_info = Custom.query.filter_by(CustomName=data).all()
@@ -139,19 +141,19 @@ def search_custom():
 
 
 # 添加客户
-@admin.route('/addCustom', methods=['GET', 'POST'])
+@admin.route('/addCustom/<int:id>/', methods=['GET', 'POST'])
 @is_login
-def add_custom():
+def add_custom(id=None):
     form = CustomForm()
     if request.method == 'POST':
         if form.validate_on_submit():
             data = form.data  # dict字典
-            custom = Custom(CustomId=data['customid'], CustomName=data['customname'],
-                            CustomAccount=data['customaccount'], CustomPhone=data['customphone'],
-                            CustomAddress=data['customaddress'], CustomType=data['customtype'])
-            db.session.add(custom)
+            custom = Custom.query.filter_by(id=id).update(
+                dict(CustomAccount=data['customaccount'], CustomType=data['customtype'])
+            )
             db.session.commit()
             return redirect(url_for('admin.custom_info', page=1))
+        print(id)
     return render_template('admin/add-custom.html', form=form)
 
 
@@ -173,38 +175,11 @@ def search_order():
         # return request.form.get('search-info') #获取表单数据
         data = request.form.get('search-info')
         if is_num(data):
-            c_info = db.session.query(Order, Product).filter(Order.OrderId == data).all()
+            c_info = db.session.query(Order, Product).filter(Order.d == int(data)).all()
             return render_template('admin/s-order-info.html', odata=c_info)
         else:
             c_info = db.session.query(Order, Product).filter(Order.OrderStatus == data).all()
             return render_template('admin/s-order-info.html', odata=c_info)
-
-
-# 添加订单
-@admin.route('/addOrder', methods=['GET', 'POST'])
-@is_login
-def add_order():
-    form = OrderForm()
-    if request.method == 'POST':
-        if form.validate_on_submit():
-            data = form.data
-            product = Product.query.filter_by(ProductId=data['Pid']).first()
-
-            if int(product.ProductNum) < int(data['Onum']):
-                flash('该产品库存数量不足')
-                return redirect(url_for('add_order', form=form))
-            else:
-                order = Order(OrderId=data['Oid'], CustomId=data['Cid'],
-                              ProductId=data['Pid'], OrderNum=data['Onum'],
-                              OrderDate=data['Odate'], OrderStatus=data['Ostatus'],
-                              OrderMoney=int(data['Onum']) * int(product.ProductPrice))
-                db.session.add(order)
-                db.session.commit()
-                products = Product.query.filter_by(ProductId=data['Pid']).update(
-                    dict(ProductNum=int(product.ProductNum) - int(data['Onum'])))
-                db.session.commit()
-                return redirect(url_for('admin.order_info', page=1))
-    return render_template('admin/add-order.html', form=form)
 
 
 # 编辑订单
@@ -216,53 +191,6 @@ def edit_Order(id=None):
 
     # 编辑订单信息
     class EditOrderForm(FlaskForm):
-        Cid = StringField(
-            validators=[
-                DataRequired('客户编号不能为空'),
-                validate_not_in_custom
-            ],
-            render_kw={
-                'class': 'form-control',
-                'placeholder': '客户编号',
-                'value': orders.CustomId
-            }
-        )
-        Oid = StringField(
-            validators=[
-                DataRequired('订单编号不能为空'),
-                validate_not_in_order,
-                validate_is_num
-            ],
-            render_kw={
-                'class': 'form-control',
-                'placeholder': '订单编号',
-                'value': orders.OrderId
-            }
-        )
-        Pid = StringField(
-            validators=[
-                DataRequired('商品编号不能为空'),
-                validate_not_in_product,
-                validate_is_num
-            ],
-            render_kw={
-                'class': 'form-control',
-                'placeholder': '商品编号',
-                'value': orders.ProductId
-            }
-        )
-        Onum = StringField(
-            validators=[
-                DataRequired('订单数量不能为空'),
-                validate_is_num
-            ],
-            render_kw={
-                'class': 'form-control',
-                'placeholder': '订单数量',
-                'value': orders.OrderNum,
-                'readonly': 'true'
-            }
-        )
         Ostatus = SelectField(
             choices=[
                 ('未完成', '未完成'),
@@ -272,16 +200,6 @@ def edit_Order(id=None):
             render_kw={
                 'class': 'form-control',
                 'placeholder': '订单状态'
-            }
-        )
-        Odate = DateField(
-            validators=[
-                DataRequired('订单日期不能为空')
-            ],
-            render_kw={
-                'class': 'form-control',
-                'placeholder': '年-月-日',
-                'value': orders.OrderDate
             }
         )
         submit = SubmitField(
@@ -296,10 +214,7 @@ def edit_Order(id=None):
         if form.validate_on_submit():
             data = form.data
             orders_ = Order.query.filter_by(id=id).update(
-                dict(OrderId=data['Oid'], CustomId=data['Cid'],
-                     ProductId=data['Pid'], OrderNum=data['Onum'],
-                     OrderDate=data['Odate'], OrderStatus=data['Ostatus'],
-                     )
+                dict(OrderStatus=data['Ostatus'])
             )
             db.session.commit()
             return redirect(url_for('admin.order_info', page=1))

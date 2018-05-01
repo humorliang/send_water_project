@@ -1,18 +1,10 @@
-{% extends 'admin/base.html' %}
-{% import 'UI/pagination.html' as pg %}
+{% extends 'home/base.html' %}
 {% block title %}
     订单信息
 {% endblock %}
 {% block content %}
     <div class="main">
-        <h2 class="sub-header">订单信息
-            <form class="form-inline pull-right" method="post" action="{{ url_for('admin.search_order') }}">
-                <div class="form-group">
-                    <label class="sr-only" for="search">快速查找</label>
-                    <input type="text" name="search-info" class="form-control" id="search" placeholder="订单编号/订单状态">
-                </div>
-                <button type="submit" class="btn btn-primary">查找</button>
-            </form>
+        <h2 class="sub-header">我的订单信息
         </h2>
         {% if odata %}
             <div class="table-responsive">
@@ -20,39 +12,32 @@
                     <thead>
                     <tr>
                         <th>订单编号</th>
-                        <th>客户编号</th>
                         <th>产品编号</th>
                         <th>订单数量</th>
                         <th>产品单价</th>
                         <th>订单日期</th>
                         <th>订单状态</th>
                         <th>总金额</th>
-                        <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {% for v in odata.items %}
+                    {% for v in odata %}
                         <tr class="or-list">
                             <td>{{ v.Order.id }}</td>
-                            <td>{{ v.Order.CustomId }}</td>
                             <td>{{ v.Order.ProductId }}</td>
                             <td class="or-num">{{ v.Order.OrderNum }}</td>
                             <td class="or-price">{{ v.Product.ProductPrice }}</td>
                             <td>{{ v.Order.OrderDate }}</td>
                             <td>{{ v.Order.OrderStatus }}</td>
                             <td class="sum-money"></td>
-                            <td><a href="{{ url_for('admin.edit_Order',id=v.Order.id) }}"
-                                   class="btn btn-primary btn-xs">编辑</a></td>
+
                         </tr>
                     {% endfor %}
                     </tbody>
                 </table>
             </div>
-            <div class="center-block">
-                {{ pg.page(odata,'admin.order_info') }}
-            </div>
         {% else %}
-            <div class="text-center text-primary" style="font-size: 20px;"> 您目前没有订单信息</div>
+            <div class="text-center text-primary" style="font-size: 20px"> 您目前没有订单信息</div>
         {% endif %}
     </div>
     <script>

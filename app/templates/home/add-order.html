@@ -1,0 +1,63 @@
+{% extends 'home/base.html' %}
+{% block title %}
+    订单信息
+{% endblock %}
+{% block content %}
+    <div class="main">
+        <h2 class="sub-header">添加订单</h2>
+        {% for msg in get_flashed_messages() %}
+            <h3 class="text-danger text-center">{{ msg }}</h3>
+        {% endfor %}
+        <form class="form-horizontal" method="post">
+            <div class="form-group ">
+                <label class="col-xs-1 control-label">产品名称</label>
+                <div class="col-xs-3">
+
+                    {{ form.Pna }}
+                </div>
+                {% for err in form.Pna.errors %}
+                    <div class="col-xs-3 text-danger">{{ err }}</div>
+                {% endfor %}
+            </div>
+            <div class="form-group ">
+                <label class="col-xs-1 control-label">订单数量</label>
+                <div class="col-xs-3">
+
+                    {{ form.Onum }}
+                </div>
+                {% for err in form.Onum.errors %}
+                    <div class="col-xs-3 text-danger">{{ err }}</div>
+                {% endfor %}
+            </div>
+            <div class="form-group ">
+                <label class="col-xs-1 control-label">订单日期</label>
+                <div class="col-xs-3">
+
+                    {{ form.Odate }}
+                </div>
+                {% for err in form.Odate.errors %}
+                    <div class="col-xs-3 text-danger">{{ err }}</div>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-primary">添加</button>
+                    {{ form.hidden_tag() }}
+                    {{ form.submit }}
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+{% block footer %}
+
+    <script type="text/javascript">
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#Odate', //指定元素
+            type: 'date'
+        });
+
+    </script>
+{% endblock %}

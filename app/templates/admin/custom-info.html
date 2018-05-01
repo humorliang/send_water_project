@@ -6,13 +6,13 @@
 {% block content %}
     <div class="main">
         <h2 class="sub-header">客户信息
-        <form class="form-inline pull-right" method="post" action="{{ url_for('admin.search_custom') }}">
-            <div class="form-group">
-                <label class="sr-only" for="search">快速查找</label>
-                <input type="text" name="search-info" class="form-control" id="search" placeholder="客户编号/客户姓名">
-            </div>
-            <button type="submit" class="btn btn-primary">查找</button>
-        </form>
+            <form class="form-inline pull-right" method="post" action="{{ url_for('admin.search_custom') }}">
+                <div class="form-group">
+                    <label class="sr-only" for="search">快速查找</label>
+                    <input type="text" name="search-info" class="form-control" id="search" placeholder="客户编号/客户姓名">
+                </div>
+                <button type="submit" class="btn btn-primary">查找</button>
+            </form>
         </h2>
         {% if cdata %}
             <div class="table-responsive">
@@ -26,19 +26,21 @@
                         <th>账户总额</th>
                         <th>消费金额</th>
                         <th>客户类型</th>
+                        <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for v in cdata.items %}
 
                         <tr>
-                            <td>{{ v.CustomId }}</td>
+                            <td>{{ v.id }}</td>
                             <td>{{ v.CustomName }}</td>
                             <td>{{ v.CustomPhone }}</td>
                             <td>{{ v.CustomAddress }}</td>
                             <td>{{ v.CustomAccount }}</td>
                             <td>{{ v.CustomConsume }}</td>
                             <td>{{ v.CustomType }}</td>
+                            <td><a href="{{ url_for('admin.add_custom',id=v.id) }}" class="btn btn-primary btn-xs">编辑</a></td>
                         </tr>
                     {% endfor %}
 

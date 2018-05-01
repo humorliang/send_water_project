@@ -19,16 +19,24 @@ class Admin(db.Model):
 # 客户表
 class Custom(db.Model):
     __tablename__ = 'custom'
-    id = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
-    CustomId = db.Column(db.String(30), unique=True)
-    CustomName = db.Column(db.String(30))
-    CustomPhone = db.Column(db.String(30))
-    CustomAddress = db.Column(db.String(100))
-    CustomAccount = db.Column(db.String(30))
-    CustomType = db.Column(db.String(30))
-    CustomConsume = db.Column(db.String(30), default='0')
+    id = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)  # 客户的id
+    username = db.Column(db.String(30))
+    password = db.Column(db.String(30))
+    # CustomId = db.Column(db.String(30), unique=True)
+    CustomName = db.Column(db.String(30), default='无')
+    CustomPhone = db.Column(db.String(30), default='无')
+    CustomAddress = db.Column(db.String(100), default='无')
+    CustomAccount = db.Column(db.String(30), default='无')
+    CustomType = db.Column(db.String(30), default='无')
+    CustomConsume = db.Column(db.String(30), default=0)
     orders = db.relationship('Order', backref='custom')  # 一个顾客多个订单
     serves = db.relationship('Serve', backref='custom')
+
+    def check_pwd(self, pwd):
+        if self.password == pwd:
+            return True
+        else:
+            return False
 
     def __repr__(self):
         return self.CustomConsume, self.CustomAccount
@@ -46,8 +54,7 @@ po = db.Table('po',
 class Order(db.Model):
     __tablename__ = 'order'
     id = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
-    OrderId = db.Column(db.String(30), unique=True)
-    CustomId = db.Column(db.String(30), db.ForeignKey('custom.CustomId'))
+    CustomId = db.Column(db.Integer, db.ForeignKey('custom.id'))
     ProductId = db.Column(db.String(30))
     OrderNum = db.Column(db.String(30))
     OrderDate = db.Column(db.Date)
@@ -82,7 +89,7 @@ class Product(db.Model):
 class Send(db.Model):
     __tablename__ = 'send'
     id = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
-    OrderId = db.Column(db.String(30), db.ForeignKey('order.OrderId'))
+    OrderId = db.Column(db.Integer, db.ForeignKey('order.id'))
     ProductName = db.Column(db.String(30))
     SendName = db.Column(db.String(30))
     SendDate = db.Column(db.Date)
@@ -95,6 +102,6 @@ class Serve(db.Model):
     __tablename__ = 'serve'
     id = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
     ServeId = db.Column(db.String(30))
-    CustomId = db.Column(db.String(30), db.ForeignKey('custom.CustomId'), nullable=False)
+    CustomId = db.Column(db.Integer, db.ForeignKey('custom.id'), nullable=False)
     ServeDate = db.Column(db.Date)
     ServeInfo = db.Column(db.String(100))

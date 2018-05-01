@@ -1,51 +1,11 @@
 {% extends 'admin/base.html' %}
 {% block title %}
-    添加订单信息
+    编辑订单信息
 {% endblock %}
 {% block content %}
     <div class="main">
-        <h2 class="sub-header">添加订单</h2>
+        <h2 class="sub-header">编辑订单</h2>
         <form class="form-horizontal" method="post">
-            <div class="form-group ">
-                <label class="col-xs-1 control-label">客户编号</label>
-                <div class="col-xs-3">
-                    {#                        <input type="text" class="form-control" placeholder="">#}
-                    {{ form.Cid }}
-                </div>
-                {% for err in form.Cid.errors %}
-                    <div class="col-xs-3 text-danger">{{ err }}</div>
-                {% endfor %}
-            </div>
-            <div class="form-group ">
-                <label class="col-xs-1 control-label">订单编号</label>
-                <div class="col-xs-3">
-                    {#                        <input type="text" class="form-control" placeholder="">#}
-                    {{ form.Oid }}
-                </div>
-                {% for err in form.Oid.errors %}
-                    <div class="col-xs-3 text-danger">{{ err }}</div>
-                {% endfor %}
-            </div>
-            <div class="form-group ">
-                <label class="col-xs-1 control-label">产品编号</label>
-                <div class="col-xs-3">
-                    {#                        <input type="text" class="form-control" placeholder="">#}
-                    {{ form.Pid }}
-                </div>
-                {% for err in form.Pid.errors %}
-                    <div class="col-xs-3 text-danger">{{ err }}</div>
-                {% endfor %}
-            </div>
-            <div class="form-group ">
-                <label class="col-xs-1 control-label">订单数量</label>
-                <div class="col-xs-3">
-                    {#                        <input type="text" class="form-control" placeholder="">#}
-                    {{ form.Onum }}
-                </div>
-                {% for err in form.Onum.errors %}
-                    <div class="col-xs-3 text-danger">{{ err }}</div>
-                {% endfor %}
-            </div>
             <div class="form-group ">
                 <label class="col-xs-1 control-label">订单状态</label>
                 <div class="col-xs-3">
@@ -56,16 +16,7 @@
                     <div class="col-xs-3 text-danger">{{ err }}</div>
                 {% endfor %}
             </div>
-            <div class="form-group ">
-                <label class="col-xs-1 control-label">订单日期</label>
-                <div class="col-xs-3">
-                    {#                        <input type="text" class="form-control" placeholder="">#}
-                    {{ form.Odate }}
-                </div>
-                {% for err in form.Odate.errors %}
-                    <div class="col-xs-3 text-danger">{{ err }}</div>
-                {% endfor %}
-            </div>
+
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     {#                        <button type="submit" class="btn btn-primary">添加</button>#}

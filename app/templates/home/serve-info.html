@@ -1,0 +1,33 @@
+{% extends 'home/base.html' %}
+{% block title %}
+    售后信息
+{% endblock %}
+{% block content %}
+    <div class="main">
+        <h2 class="sub-header">我的售后信息</h2>
+        {% if sedata %}
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>售后编号</th>
+                        <th>售后日期</th>
+                        <th>售后说明</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for v in sedata %}
+                        <tr>
+                            <td>{{ v.ServeId }}</td>
+                            <td>{{ v.ServeDate }}</td>
+                            <td>{{ v.ServeInfo }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="text-center text-primary" style="font-size: 20px;"> 您还没有售后信息</div>
+        {% endif %}
+    </div>
+{% endblock %}

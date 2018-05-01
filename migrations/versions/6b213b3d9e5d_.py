@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: f574e7b8b962
+Revision ID: 6b213b3d9e5d
 Revises: 
-Create Date: 2018-04-18 13:49:01.847210
+Create Date: 2018-05-01 23:37:01.869643
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'f574e7b8b962'
+revision = '6b213b3d9e5d'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -26,15 +26,15 @@ def upgrade():
     )
     op.create_table('custom',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('CustomId', sa.String(length=30), nullable=True),
+    sa.Column('username', sa.String(length=30), nullable=True),
+    sa.Column('password', sa.String(length=30), nullable=True),
     sa.Column('CustomName', sa.String(length=30), nullable=True),
     sa.Column('CustomPhone', sa.String(length=30), nullable=True),
     sa.Column('CustomAddress', sa.String(length=100), nullable=True),
     sa.Column('CustomAccount', sa.String(length=30), nullable=True),
     sa.Column('CustomType', sa.String(length=30), nullable=True),
     sa.Column('CustomConsume', sa.String(length=30), nullable=True),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('CustomId')
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('product',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -50,24 +50,22 @@ def upgrade():
     )
     op.create_table('order',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('OrderId', sa.String(length=30), nullable=True),
-    sa.Column('CustomId', sa.String(length=30), nullable=True),
+    sa.Column('CustomId', sa.Integer(), nullable=True),
     sa.Column('ProductId', sa.String(length=30), nullable=True),
     sa.Column('OrderNum', sa.String(length=30), nullable=True),
     sa.Column('OrderDate', sa.Date(), nullable=True),
     sa.Column('OrderStatus', sa.String(length=30), nullable=True),
     sa.Column('OrderMoney', sa.String(length=30), nullable=True),
-    sa.ForeignKeyConstraint(['CustomId'], ['custom.CustomId'], ),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('OrderId')
+    sa.ForeignKeyConstraint(['CustomId'], ['custom.id'], ),
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('serve',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('ServeId', sa.String(length=30), nullable=True),
-    sa.Column('CustomId', sa.String(length=30), nullable=False),
+    sa.Column('CustomId', sa.Integer(), nullable=False),
     sa.Column('ServeDate', sa.Date(), nullable=True),
     sa.Column('ServeInfo', sa.String(length=100), nullable=True),
-    sa.ForeignKeyConstraint(['CustomId'], ['custom.CustomId'], ),
+    sa.ForeignKeyConstraint(['CustomId'], ['custom.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('po',
@@ -79,13 +77,13 @@ def upgrade():
     )
     op.create_table('send',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('OrderId', sa.String(length=30), nullable=True),
+    sa.Column('OrderId', sa.Integer(), nullable=True),
     sa.Column('ProductName', sa.String(length=30), nullable=True),
     sa.Column('SendName', sa.String(length=30), nullable=True),
     sa.Column('SendDate', sa.Date(), nullable=True),
     sa.Column('SendPhone', sa.String(length=30), nullable=True),
     sa.Column('SendAddress', sa.String(length=100), nullable=True),
-    sa.ForeignKeyConstraint(['OrderId'], ['order.OrderId'], ),
+    sa.ForeignKeyConstraint(['OrderId'], ['order.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###

@@ -1,0 +1,40 @@
+{% extends 'home/base.html' %}
+{% block title %}
+    配送信息
+{% endblock %}
+{% block content %}
+    <div class="main">
+        <h2 class="sub-header">您的配送信息</h2>
+        {% if sends %}
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>订单编号</th>
+                        <th>产品名称</th>
+                        <th>配送人</th>
+                        <th>配送日期</th>
+                        <th>联系方式</th>
+                        <th>配送地址</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for v in sends %}
+                        <tr>
+                            <td>{{ v.Send.OrderId }}</td>
+                            <td>{{ v.Send.ProductName }}</td>
+                            <td>{{ v.Send.SendName }}</td>
+                            <td>{{ v.Send.SendDate }}</td>
+                            <td>{{ v.Send.SendPhone }}</td>
+                            <td>{{ v.Send.SendAddress }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        {% else %}
+            <div class="text-center text-primary" style="font-size: 20px;"> 您还没有配送信息</div>
+        {% endif %}
+    </div>
+{% endblock %}

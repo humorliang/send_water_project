@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/layui.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/laydate.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.min.css') }}">
+    <title>{% block title %}{% endblock %}</title>
+    <style>
+        .top{
+            padding: 50px 0;
+            width: 100%;
+            background: #c2c2c2;
+        }
+        ul{
+            list-style: none;
+            margin: 0;
+            padding: 0;
+
+        }
+        body>nav{
+            padding: 10px 0;
+            margin: 10px;
+            background: #c2c2c2;
+        }
+        body>nav>ul a{
+            display: inline-block;
+            padding: 10px;
+            border-radius: 5px;
+            background: #0ea4a3;
+            color: #fff;
+            text-decoration: none;
+        }
+        a:hover{
+            text-decoration: none;
+        }
+    </style>
+    {% block style %}{% endblock %}
+</head>
+
+<body>
+<div class="top">
+    <h1 class="text-center text-primary">校园订水系统系统</h1>
+    <div><a href="{{ url_for('home.login_out') }}" class="btn btn-md btn-primary pull-right" style="margin-right: 50px;">退出</a></div>
+</div>
+<nav class="container-fluid">
+    <ul class="row">
+        <li class="col-xs-3 text-center"><a href="{{ url_for('home.search_order') }}">我的订单</a></li>
+        <li  class="col-xs-3 text-center"><a href="{{ url_for('home.search_send') }}">我的配送</a></li>
+        <li class="col-xs-3 text-center"><a href="{{ url_for('home.search_serve') }}">我的售后</a></li>
+        <li class="col-xs-3 text-center"><a href="{{ url_for('home.add_order') }}">我要下单</a></li>
+    </ul>
+</nav>
+
+<div>
+    {% block content %}
+    {% endblock %}
+</div>
+<script src="{{ url_for('static',filename='js/laydate.js') }}"></script>
+{% block footer %}{% endblock %}
+</body>
+<script src="{{ url_for('static',filename='js/jquery.min.js') }}"></script>
+<script src="{{ url_for('static',filename='js/bootstrap.min.js') }}"></script>
+
+</html>
