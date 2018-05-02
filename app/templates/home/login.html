@@ -10,7 +10,7 @@
     <title>登陆选项</title>
     <style>
         body {
-            background:#cccccc;
+            background-image: url({{ url_for('static',filename='images/3.jpg')}});
             -webkit-background-size: 100%;
             background-size: 100%;
         }
@@ -18,7 +18,7 @@
         .container {
             width: 500px;
             margin: 100px auto;
-            background-image: url({{ url_for('static',filename='images/form-bg_02.png')}});
+            background-image: url({{ url_for('static',filename='images/2.jpg')}});
             border-radius: 10px;
             color: #f4f4f4;
         }
@@ -30,7 +30,7 @@
 <div class="container">
     <h1 class="text-center">校园送水服务系统</h1>
     <form class="form-signin" method="POST">
-        <h2 class="form-signin-heading text-center">用户登陆</h2>
+        <h2 class="form-signin-heading text-center">用户登录</h2>
         <div class="form-label">用户名</div>
         {#
             <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">#} {{ form.username }}

@@ -13,7 +13,9 @@
         .top{
             padding: 50px 0;
             width: 100%;
-            background: #c2c2c2;
+            background-image: url({{ url_for('static',filename='images/4.jpg')}});
+            -webkit-background-size: 100% 300px;
+            background-size: 100% 300px;
         }
         ul{
             list-style: none;
@@ -43,7 +45,7 @@
 
 <body>
 <div class="top">
-    <h1 class="text-center text-primary">校园订水系统系统</h1>
+    <h1 class="text-center text-primary">校园订水系统</h1>
     <div><a href="{{ url_for('home.login_out') }}" class="btn btn-md btn-primary pull-right" style="margin-right: 50px;">退出</a></div>
 </div>
 <nav class="container-fluid">
